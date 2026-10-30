@@ -6,32 +6,78 @@
     {
       "type": "hero",
       "eyebrow": "Commercial Signs · Central Florida",
-      "title": ["Central Florida", "*Sign Installation*", "Specialists"],
+      "title": [
+        "Central Florida",
+        "*Sign Installation*",
+        "Specialists"
+      ],
       "text": "We install and service commercial signs for sign companies, contractors and businesses across Orlando, Tampa and Central Florida. Experienced crews and the right equipment for every job.",
       "buttons": [
-        { "label": "Get a Free Quote", "href": "/contact/", "style": "primary" },
-        { "label": "For Sign Companies", "href": "/sign-companies/", "style": "ghost" }
+        {
+          "label": "Get a Free Quote",
+          "href": "/contact/",
+          "style": "primary"
+        },
+        {
+          "label": "For Sign Companies",
+          "href": "/sign-companies/",
+          "style": "ghost"
+        }
       ],
       "photos": [
-        { "src": "/assets/img/work-1.jpg", "alt": "Channel letter sign installed on a storefront" },
-        { "src": "/assets/img/work-2.jpg", "alt": "Illuminated storefront sign at night" },
-        { "src": "/assets/img/work-3.jpg", "alt": "Pylon sign installation" },
-        { "src": "/assets/img/work-4.jpg", "alt": "Monument sign at an entrance" }
+        {
+          "src": "/assets/img/work-1.jpg",
+          "alt": "Flush-mount sign on a restaurant storefront"
+        },
+        {
+          "src": "/assets/img/work-2.jpg",
+          "alt": "Illuminated channel letters on a restaurant"
+        },
+        {
+          "src": "/assets/img/work-3.jpg",
+          "alt": "Storefront sign lit at night"
+        },
+        {
+          "src": "/assets/img/work-4.jpg",
+          "alt": "Channel letter sign on a laundromat"
+        }
       ]
     },
-    { "type": "ticker" },
+    {
+      "type": "ticker"
+    },
     {
       "type": "cards",
       "id": "services",
       "eyebrow": "What we do",
       "title": "Sign *Installation* Services",
       "cards": [
-        { "title": "Channel Letters", "text": "Raceway and flush-mount channel letter installation for storefronts and buildings." },
-        { "title": "Pylon & Pole Signs", "text": "Single and multi-tenant pylon and pole signs, including face and cabinet replacement.", "dark": true },
-        { "title": "Monument Signs", "text": "Monument and entrance signs for plazas, offices and communities." },
-        { "title": "Contour Lightboxes", "text": "Contour lightboxes, blade signs, lobby and interior signage." },
-        { "title": "Removal & Rebranding", "text": "Safe removal, wall patch and paint, and new sign installation in one visit.", "dark": true },
-        { "title": "Surveys & Permits", "text": "Site surveys, photos and measurements, and permit coordination before install day." }
+        {
+          "title": "Channel Letters",
+          "text": "Raceway and flush-mount channel letter installation for storefronts and buildings."
+        },
+        {
+          "title": "Pylon & Pole Signs",
+          "text": "Single and multi-tenant pylon and pole signs, including face and cabinet replacement.",
+          "dark": true
+        },
+        {
+          "title": "Monument Signs",
+          "text": "Monument and entrance signs for plazas, offices and communities."
+        },
+        {
+          "title": "Contour Lightboxes",
+          "text": "Contour lightboxes, blade signs, lobby and interior signage."
+        },
+        {
+          "title": "Removal & Rebranding",
+          "text": "Safe removal, wall patch and paint, and new sign installation in one visit.",
+          "dark": true
+        },
+        {
+          "title": "Surveys & Permits",
+          "text": "Site surveys, photos and measurements, and permit coordination before install day."
+        }
       ]
     },
     {
@@ -42,14 +88,20 @@
           "label": "Sign Companies & Fabricators",
           "title": "Your Florida Installation Partner",
           "text": "Surveys, permits, installation and service calls for your accounts, done under your brand.",
-          "button": { "label": "Partner With Us", "href": "/sign-companies/" },
+          "button": {
+            "label": "Partner With Us",
+            "href": "/sign-companies/"
+          },
           "dark": true
         },
         {
           "label": "Business Owners",
           "title": "Sign Repair, Maintenance & Refresh",
           "text": "Lights out, faded faces or a sign that needs a new look? We repair, clean, repaint and upgrade signs of every size.",
-          "button": { "label": "See Sign Services", "href": "/sign-repair/" }
+          "button": {
+            "label": "See Sign Services",
+            "href": "/sign-repair/"
+          }
         }
       ]
     },
@@ -58,20 +110,44 @@
       "eyebrow": "How it works",
       "title": "From Photo to *Lit Sign*",
       "steps": [
-        { "title": "Send It", "text": "Send the address, photos and drawings or proof." },
-        { "title": "Survey", "text": "We check the wall, the structure and the electrical on site." },
-        { "title": "Quote", "text": "You get a clear quote at the sizes you asked for." },
-        { "title": "Install", "text": "Install day, with before and after photos for your records." }
+        {
+          "title": "Send It",
+          "text": "Send the address, photos and drawings or proof."
+        },
+        {
+          "title": "Survey",
+          "text": "We check the wall, the structure and the electrical on site."
+        },
+        {
+          "title": "Quote",
+          "text": "You get a clear quote at the sizes you asked for."
+        },
+        {
+          "title": "Install",
+          "text": "Install day, with before and after photos for your records."
+        }
       ]
     },
     {
       "type": "gallery",
       "eyebrow": "Recent work",
-      "title": "Signs We *Built & Installed*",
+      "title": "Signs We *Installed*",
       "photos": [
-        { "src": "/assets/img/gallery-1.jpg", "caption": "Channel Letters" },
-        { "src": "/assets/img/gallery-2.jpg", "caption": "Flush-Mount Letters" },
-        { "src": "/assets/img/gallery-3.jpg", "caption": "Day & Night Rebrand" }
+        {
+          "src": "/assets/img/gallery-1.jpg",
+          "caption": "Channel Letters",
+          "alt": "Illuminated channel letter storefront sign at night"
+        },
+        {
+          "src": "/assets/img/gallery-2.jpg",
+          "caption": "Pylon Sign",
+          "alt": "Pylon sign installed by a highway"
+        },
+        {
+          "src": "/assets/img/gallery-3.jpg",
+          "caption": "Monument Sign",
+          "alt": "Monument sign at an apartment community entrance"
+        }
       ]
     },
     {
@@ -79,8 +155,16 @@
       "title": "Ready to Install or *Fix* Your Sign?",
       "text": "Send us the address, photos and what you need. We reply the same day.",
       "buttons": [
-        { "label": "Get a Free Quote", "href": "/contact/", "style": "dark" },
-        { "label": "Call 321-201-1663", "href": "tel:3212011663", "style": "ghost-light" }
+        {
+          "label": "Get a Free Quote",
+          "href": "/contact/",
+          "style": "dark"
+        },
+        {
+          "label": "Call 321-201-1663",
+          "href": "tel:3212011663",
+          "style": "ghost-light"
+        }
       ]
     }
   ]

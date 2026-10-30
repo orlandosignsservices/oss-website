@@ -1,0 +1,30 @@
+{
+  "indexTitle": "Service *Areas*",
+  "indexText": "We install and service signs across Orlando and the surrounding areas of Central Florida, and take statewide projects on request.",
+  "cities": [
+    { "name": "Orlando", "slug": "orlando", "county": "Orange County" },
+    { "name": "Kissimmee", "slug": "kissimmee", "county": "Osceola County" },
+    { "name": "St. Cloud", "slug": "st-cloud", "county": "Osceola County" },
+    { "name": "Celebration", "slug": "celebration", "county": "Osceola County" },
+    { "name": "Lake Nona", "slug": "lake-nona", "county": "Orange County" },
+    { "name": "Winter Park", "slug": "winter-park", "county": "Orange County" },
+    { "name": "Winter Garden", "slug": "winter-garden", "county": "Orange County" },
+    { "name": "Ocoee", "slug": "ocoee", "county": "Orange County" },
+    { "name": "Apopka", "slug": "apopka", "county": "Orange County" },
+    { "name": "Altamonte Springs", "slug": "altamonte-springs", "county": "Seminole County" },
+    { "name": "Oviedo", "slug": "oviedo", "county": "Seminole County" },
+    { "name": "Sanford", "slug": "sanford", "county": "Seminole County" },
+    { "name": "Lake Mary", "slug": "lake-mary", "county": "Seminole County" },
+    { "name": "Clermont", "slug": "clermont", "county": "Lake County" },
+    { "name": "Davenport", "slug": "davenport", "county": "Polk County" },
+    { "name": "Lakeland", "slug": "lakeland", "county": "Polk County" },
+    { "name": "Deltona", "slug": "deltona", "county": "Volusia County" },
+    { "name": "Daytona Beach", "slug": "daytona-beach", "county": "Volusia County" },
+    { "name": "Melbourne", "slug": "melbourne", "county": "Brevard County" },
+    { "name": "Leesburg", "slug": "leesburg", "county": "Lake County" },
+    { "name": "The Villages", "slug": "the-villages", "county": "Sumter County" },
+    { "name": "Ocala", "slug": "ocala", "county": "Marion County" },
+    { "name": "Gainesville", "slug": "gainesville", "county": "Alachua County" },
+    { "name": "Tampa", "slug": "tampa", "county": "Hillsborough County" }
+  ]
+}

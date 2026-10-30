@@ -1,0 +1,15 @@
+{
+  "slug": "contact",
+  "title": "Contact & Free Quote",
+  "description": "Request a free sign installation or repair quote from Orlando Signs Services. Call 321-201-1663 or email contact@orlandosignsservices.com.",
+  "sections": [
+    {
+      "type": "contact",
+      "eyebrow": "Free quote",
+      "title": "Let's Talk About *Your Sign*",
+      "text": "Send the address, a few photos and what you need. We reply the same day.",
+      "formNote": "The quote form connects to Lead Connector — paste the form embed code into content/pages/contact.json (formEmbed).",
+      "formEmbed": ""
+    }
+  ]
+}

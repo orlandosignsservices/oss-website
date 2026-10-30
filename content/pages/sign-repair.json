@@ -1,0 +1,65 @@
+{
+  "slug": "sign-repair",
+  "title": "Sign Repair & Maintenance in Orlando",
+  "description": "Business sign repair, LED and lighting service, cleaning, repainting and refresh for signs of every size in Orlando and Central Florida.",
+  "sections": [
+    {
+      "type": "hero",
+      "eyebrow": "Sign Service · Orlando & Central Florida",
+      "title": ["Sign Repair,", "*Maintenance*", "& Refresh"],
+      "text": "Lights out, faded faces or storm damage? We repair, clean, repaint and upgrade business signs of every size, from storefront letters to tall pylon signs.",
+      "buttons": [
+        { "label": "Request a Service Call", "href": "/contact/", "style": "primary" },
+        { "label": "Call 321-201-1663", "href": "tel:3212011663", "style": "ghost" }
+      ],
+      "photos": [
+        { "src": "/assets/img/repair-1.jpg", "alt": "Sign with lights out before repair" },
+        { "src": "/assets/img/repair-2.jpg", "alt": "Same sign lit after repair" },
+        { "src": "/assets/img/repair-3.jpg", "alt": "LED module replacement" },
+        { "src": "/assets/img/repair-4.jpg", "alt": "Repainted pylon sign" }
+      ]
+    },
+    { "type": "ticker" },
+    {
+      "type": "cards",
+      "eyebrow": "Our sign services",
+      "title": "Keep Your Sign *Bright*",
+      "cards": [
+        { "title": "Service Calls & Repair", "text": "Repair for channel letters, cabinets, pylon and pole signs. Storm damage repair." },
+        { "title": "Lighting & LED Service", "text": "LED repair, power supply replacement, LED upgrades and neon-to-LED conversion.", "dark": true },
+        { "title": "Face Restoration & Cleaning", "text": "Florida sun and rain leave faces dull. We clean letters, faces and cabinets." },
+        { "title": "Structural Repainting", "text": "Pylon, pole and monument painting, cabinet repainting and rust treatment." },
+        { "title": "Refurbish & Rebuild", "text": "Face replacement, cabinet repair and complete sign rebuilds.", "dark": true },
+        { "title": "Design & Rebranding", "text": "A new look for an existing sign: redesign, new faces and updated branding." }
+      ]
+    },
+    {
+      "type": "split",
+      "eyebrow": "Bundle & save",
+      "items": [
+        {
+          "label": "One visit",
+          "title": "Sign Refresh Package",
+          "text": "Face and letter cleaning, LED upgrades, lighting repair and repainting in one visit. Every sign is different, so we quote after a quick survey — the more you bundle, the more you save.",
+          "button": { "label": "Ask About a Refresh", "href": "/contact/" },
+          "dark": true
+        },
+        {
+          "label": "Several locations",
+          "title": "Sign Maintenance Program",
+          "text": "Scheduled inspections, cleaning and lighting checks for all your locations, so every sign stays bright and safe.",
+          "button": { "label": "Talk to Us", "href": "/contact/" }
+        }
+      ]
+    },
+    {
+      "type": "cta",
+      "title": "Sign Not Looking *Its Best*?",
+      "text": "Send a photo of your sign and the address. We'll tell you what it needs and send a quote.",
+      "buttons": [
+        { "label": "Request a Quote", "href": "/contact/", "style": "dark" },
+        { "label": "Call 321-201-1663", "href": "tel:3212011663", "style": "ghost-light" }
+      ]
+    }
+  ]
+}

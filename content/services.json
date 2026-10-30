@@ -1,0 +1,123 @@
+{
+  "indexTitle": "Our Sign *Services*",
+  "indexText": "Installation for sign companies and contractors, and repair, maintenance and refresh for business owners across Central Florida.",
+  "services": [
+    {
+      "slug": "channel-letter-installation",
+      "name": "Channel Letter Installation",
+      "short": "Raceway and flush-mount channel letters for storefronts and buildings.",
+      "intro": "Raceway-mounted and flush-mount channel letters installed level, sealed and wired to code, on stucco, EIFS, block, metal and brick walls.",
+      "includes": [
+        "Raceway and flush-mount letter installation",
+        "Pattern layout and wall penetration sealing",
+        "Electrical connection to an existing circuit",
+        "Before and after photo report"
+      ],
+      "audience": "Sign companies, contractors and businesses"
+    },
+    {
+      "slug": "pylon-sign-installation",
+      "name": "Pylon & Pole Sign Installation",
+      "short": "Single and multi-tenant pylon and pole signs, faces and cabinets.",
+      "intro": "New pylon and pole sign installation, cabinet replacement and tenant face changes for shopping centers, dealerships, gas stations and plazas.",
+      "includes": [
+        "New pylon and pole sign installation",
+        "Cabinet replacement on existing structures",
+        "Tenant panel and face changes",
+        "Wiring and lighting checks"
+      ],
+      "audience": "Sign companies, property managers and businesses"
+    },
+    {
+      "slug": "monument-sign-installation",
+      "name": "Monument Sign Installation",
+      "short": "Monument and entrance signs for plazas, offices and communities.",
+      "intro": "Monument and entrance sign installation for offices, plazas, churches, schools and residential communities, including panel and face replacements.",
+      "includes": [
+        "Monument and entrance sign installation",
+        "Panel and face replacement",
+        "Lighting connection",
+        "Site cleanup on completion"
+      ],
+      "audience": "Sign companies, HOAs and businesses"
+    },
+    {
+      "slug": "contour-lightbox-installation",
+      "name": "Contour Lightbox Installation",
+      "short": "Contour lightboxes, blade signs and interior signage.",
+      "intro": "Contour lightbox, cabinet and blade sign installation for storefronts, plus lobby and interior signage.",
+      "includes": [
+        "Contour and cabinet lightbox installation",
+        "Blade and projecting signs",
+        "Lobby and interior signs",
+        "Electrical connection to an existing circuit"
+      ],
+      "audience": "Sign companies and businesses"
+    },
+    {
+      "slug": "sign-removal-and-rebranding",
+      "name": "Sign Removal & Rebranding",
+      "short": "Old sign removal, patch and paint, and the new sign in one visit.",
+      "intro": "Safe removal of old signage, wall patch and paint, and installation of the new brand — one crew, one visit, ideal for rebrand rollouts.",
+      "includes": [
+        "Removal and disposal of old signs",
+        "Wall patch and paint",
+        "New sign installation",
+        "Rollouts across several locations"
+      ],
+      "audience": "Sign companies, franchises and businesses"
+    },
+    {
+      "slug": "sign-repair",
+      "name": "Sign Repair",
+      "short": "Repair for channel letters, cabinets, pylon and pole signs.",
+      "intro": "Business sign repair for channel letters, cabinets, pylon, pole and monument signs, including storm damage.",
+      "includes": [
+        "Diagnosis and repair on site",
+        "Storm and impact damage repair",
+        "Face and cabinet repair",
+        "Photo report of the work done"
+      ],
+      "audience": "Business owners and property managers"
+    },
+    {
+      "slug": "led-sign-lighting-repair",
+      "name": "LED & Sign Lighting Repair",
+      "short": "Sign lights out? LED repair, power supplies and neon-to-LED.",
+      "intro": "Sign lights not working? We find the problem and fix it: LED modules, power supplies, timers and photocells, plus LED upgrades and neon-to-LED conversion.",
+      "includes": [
+        "LED module and power supply replacement",
+        "Timer and photocell service",
+        "LED upgrades",
+        "Neon-to-LED conversion"
+      ],
+      "audience": "Business owners and property managers"
+    },
+    {
+      "slug": "sign-maintenance",
+      "name": "Sign Maintenance & Restoration",
+      "short": "Cleaning, repainting and refresh so your sign looks new.",
+      "intro": "Florida sun and rain wear signs down. We clean faces and letters, repaint cabinets and structures, treat rust and keep every sign bright with scheduled maintenance.",
+      "includes": [
+        "Face and channel letter cleaning",
+        "Cabinet, pylon and monument repainting",
+        "Rust treatment",
+        "Scheduled maintenance for several locations"
+      ],
+      "audience": "Business owners, franchises and property managers"
+    },
+    {
+      "slug": "sign-permits-and-surveys",
+      "name": "Sign Surveys & Permits",
+      "short": "Site surveys, measurements and permit coordination.",
+      "intro": "Site surveys with photos and measurements of wall and electrical conditions, and permit coordination with local cities and counties before install day.",
+      "includes": [
+        "Site survey with photos and measurements",
+        "Wall and electrical conditions",
+        "Permit coordination",
+        "Landlord authorization paperwork"
+      ],
+      "audience": "Sign companies, contractors and businesses"
+    }
+  ]
+}

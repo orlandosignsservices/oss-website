@@ -1,0 +1,32 @@
+{
+  "name": "Orlando Signs Services",
+  "domain": "orlandosignsservices.com",
+  "url": "https://orlandosignsservices.com",
+  "phone": "321-201-1663",
+  "phoneHref": "tel:3212011663",
+  "email": "contact@orlandosignsservices.com",
+  "city": "Orlando, FL",
+  "region": "Central Florida",
+  "instagram": "https://www.instagram.com/orlandosignsservices",
+  "instagramHandle": "@orlandosignsservices",
+  "nav": [
+    { "label": "Home", "href": "/" },
+    { "label": "Services", "href": "/services/" },
+    { "label": "For Sign Companies", "href": "/sign-companies/" },
+    { "label": "Sign Repair", "href": "/sign-repair/" },
+    { "label": "Service Areas", "href": "/service-areas/" },
+    { "label": "Contact", "href": "/contact/" }
+  ],
+  "cta": { "label": "Get a Quote", "href": "/contact/" },
+  "ticker": [
+    "Channel Letters",
+    "Pylon & Pole Signs",
+    "Monument Signs",
+    "Contour Lightboxes",
+    "Sign Repair",
+    "LED Upgrades",
+    "Site Surveys",
+    "Permits",
+    "Removal & Rebranding"
+  ]
+}

@@ -196,7 +196,7 @@ p { margin: 0; }
 /* ---------- Footer ---------- */
 .foot { background: var(--ink); color: #D9D9D9; padding: 48px 0 24px; }
 .foot__inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; }
-.foot .logo { color: #fff; margin-bottom: 8px; }
+.foot__logo { width: 240px; height: auto; margin-bottom: 12px; }
 .foot a { color: #fff; text-decoration: none; }
 .foot a:hover { color: var(--orange); }
 .foot__legal { text-align: center; font-size: 13px; margin-top: 32px; color: #9A9A9A; }

@@ -68,7 +68,7 @@ ${body}
 <footer class="foot">
   <div class="wrap foot__inner">
     <div>
-      <p class="logo">ORLANDO <span>SIGNS</span> SERVICES</p>
+      <img class="foot__logo" src="/assets/img/logo.png" alt="${esc(site.name)} logo" width="240" height="78">
       <p>${esc(site.city)} · Serving ${esc(site.region)}</p>
     </div>
     <div>

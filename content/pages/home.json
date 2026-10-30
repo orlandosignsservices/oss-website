@@ -7,9 +7,8 @@
       "type": "hero",
       "eyebrow": "Commercial Signs · Central Florida",
       "title": [
-        "Central Florida",
-        "*Sign Installation*",
-        "Specialists"
+        "Central Florida sign",
+        "*installation specialists.*"
       ],
       "text": "We install and service commercial signs for sign companies, contractors and businesses across Orlando, Tampa and Central Florida. Experienced crews and the right equipment for every job.",
       "buttons": [
@@ -41,7 +40,12 @@
           "src": "/assets/img/work-4.jpg",
           "alt": "Channel letter sign on a laundromat"
         }
-      ]
+      ],
+      "badge": {
+        "tag": "New",
+        "text": "Sign repair & refresh packages",
+        "href": "/sign-repair/"
+      }
     },
     {
       "type": "ticker"

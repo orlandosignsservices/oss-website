@@ -39,7 +39,7 @@ module.exports = function generate(site, servicesData, areasData) {
         {
           type: "hero",
           eyebrow: "Orlando · Central Florida",
-          title: titleLines(s.name),
+          title: [s.name, "*across Central Florida.*"],
           text: `${s.intro} ${isInstall(s) ? "Experienced crews and the right equipment for every job." : ""}`.trim(),
           buttons: quoteBtns(false),
           photos: [],
@@ -91,7 +91,7 @@ module.exports = function generate(site, servicesData, areasData) {
         {
           type: "hero",
           eyebrow: `${c.name} · ${c.county}`,
-          title: ["Sign Installation", "*& Repair in*", c.name],
+          title: ["Sign installation & repair", `*in ${c.name}.*`],
           text: `Channel letters, pylon and pole signs, monuments and lightboxes installed and serviced in ${c.name} and across ${c.county}. Experienced crews and the right equipment for every job.`,
           buttons: quoteBtns(false),
           photos: [],
@@ -129,7 +129,7 @@ module.exports = function generate(site, servicesData, areasData) {
           {
             type: "hero",
             eyebrow: `${c.name}, FL · ${c.county}`,
-            title: [...titleLines(s.name), `in ${c.name}`],
+            title: [s.name, `*in ${c.name}, FL.*`],
             text: `${s.intro.replace(/\.$/, "")} in ${c.name} and nearby. ${isInstall(s) ? "Experienced crews and the right equipment for every job." : "We reply the same day."}`,
             buttons: quoteBtns(false),
             photos: [],

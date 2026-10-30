@@ -25,18 +25,32 @@ function photo(p, ctx, cls = "") {
 const sections = {
   hero(d, ctx) {
     const lines = d.title.map((l) => `<span class="hero__line">${hl(l)}</span>`).join("");
-    const photos = (d.photos || [])
-      .slice(0, 4)
-      .map((p, i) => `<figure class="hero__photo hero__photo--${i + 1}">${photo(p, ctx)}</figure>`)
+    const badge = d.badge
+      ? `<a class="badge" href="${esc(d.badge.href)}"><span class="badge__tag">${esc(d.badge.tag)}</span>${esc(d.badge.text)}<span aria-hidden="true">→</span></a>`
+      : `<p class="badge"><span class="badge__tag">FL</span>${esc(d.eyebrow || "")}</p>`;
+    const shelf = (ctx.site.shelf || []).filter((p) => ctx.photoExists(p.src));
+    const tabs = (ctx.site.shelfTabs || [])
+      .map(([k, l], i) => `<button type="button" class="tab${i ? "" : " is-on"}" data-cat="${esc(k)}" aria-pressed="${i ? "false" : "true"}">${esc(l)}</button>`)
       .join("");
-    return `<section class="hero dots">
-  ${photos}
+    const card = (p) => `<figure class="shelf__item" data-cat="${esc(p.cat)}">
+        <img src="${esc(p.src)}" alt="${esc(p.title)}" loading="lazy">
+        <figcaption><strong>${esc(p.title)}</strong><span>${esc(p.meta)}</span></figcaption>
+      </figure>`;
+    const row = (items) => `<div class="shelf__row"><div class="shelf__track">${items.map(card).join("")}${items.map(card).join("")}</div></div>`;
+    const half = Math.ceil(shelf.length / 2);
+    const rowB = [...shelf.slice(half), ...shelf.slice(0, half)];
+    return `<section class="hero">
   <div class="hero__inner">
-    ${d.eyebrow ? `<p class="tag">${esc(d.eyebrow)}</p>` : ""}
+    ${badge}
     <h1 class="hero__title">${lines}</h1>
     <p class="hero__text">${esc(d.text)}</p>
-    <div class="btns">${(d.buttons || []).map(button).join("")}</div>
+    <div class="btns btns--center">${(d.buttons || []).map(button).join("")}</div>
+    <p class="proof"><span class="proof__faces" aria-hidden="true">${shelf.slice(0, 4).map((p) => `<img src="${esc(p.src)}" alt="">`).join("")}</span>Trusted by sign companies, contractors and businesses across Central Florida</p>
   </div>
+  ${shelf.length ? `<div class="shelf-wrap">
+    <div class="tabs" role="group" aria-label="Filter our work"><span class="tabs__label">See our work</span>${tabs}</div>
+    <div class="shelf">${row(shelf)}${row(rowB)}</div>
+  </div>` : ""}
 </section>`;
   },
 

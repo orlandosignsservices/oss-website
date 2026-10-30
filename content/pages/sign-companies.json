@@ -6,31 +6,81 @@
     {
       "type": "hero",
       "eyebrow": "For Sign Companies & Fabricators",
-      "title": ["Your Florida", "*Installation*", "Partner"],
+      "title": [
+        "Your Florida installation",
+        "*partner, under your brand.*"
+      ],
       "text": "New installs, surveys, permits and service calls for your accounts in Florida. We work behind your brand, so your client sees your company. Experienced crews and the right equipment for every job.",
       "buttons": [
-        { "label": "Send Us Your Next RFQ", "href": "/contact/", "style": "primary" },
-        { "label": "Call 321-201-1663", "href": "tel:3212011663", "style": "ghost" }
+        {
+          "label": "Send Us Your Next RFQ",
+          "href": "/contact/",
+          "style": "primary"
+        },
+        {
+          "label": "Call 321-201-1663",
+          "href": "tel:3212011663",
+          "style": "ghost"
+        }
       ],
       "photos": [
-        { "src": "/assets/img/install-1.jpg", "alt": "Crew installing channel letters" },
-        { "src": "/assets/img/install-2.jpg", "alt": "Pylon sign face installation" },
-        { "src": "/assets/img/install-3.jpg", "alt": "Sign wiring and connection" },
-        { "src": "/assets/img/install-4.jpg", "alt": "Finished storefront sign" }
-      ]
+        {
+          "src": "/assets/img/install-1.jpg",
+          "alt": "Crew installing channel letters"
+        },
+        {
+          "src": "/assets/img/install-2.jpg",
+          "alt": "Pylon sign face installation"
+        },
+        {
+          "src": "/assets/img/install-3.jpg",
+          "alt": "Sign wiring and connection"
+        },
+        {
+          "src": "/assets/img/install-4.jpg",
+          "alt": "Finished storefront sign"
+        }
+      ],
+      "badge": {
+        "tag": "Partners",
+        "text": "Send us your next RFQ",
+        "href": "/contact/"
+      }
     },
-    { "type": "ticker" },
+    {
+      "type": "ticker"
+    },
     {
       "type": "cards",
       "eyebrow": "What we handle",
       "title": "Installation, *Start to Finish*",
       "cards": [
-        { "title": "Site Survey", "text": "Photos, measurements, wall and electrical conditions, sent back fast so you can quote." },
-        { "title": "Permits", "text": "Permit coordination and landlord paperwork with local cities and counties.", "dark": true },
-        { "title": "Channel Letter Installation", "text": "Raceway and flush-mount letters on any storefront." },
-        { "title": "Pylon & Monument Installation", "text": "New installs and face or cabinet replacements." },
-        { "title": "Removal & Rebrand Installation", "text": "Old sign removal, patch and paint, and rollout installs.", "dark": true },
-        { "title": "Photo Reports", "text": "Before and after photos on every job, ready for your client." }
+        {
+          "title": "Site Survey",
+          "text": "Photos, measurements, wall and electrical conditions, sent back fast so you can quote."
+        },
+        {
+          "title": "Permits",
+          "text": "Permit coordination and landlord paperwork with local cities and counties.",
+          "dark": true
+        },
+        {
+          "title": "Channel Letter Installation",
+          "text": "Raceway and flush-mount letters on any storefront."
+        },
+        {
+          "title": "Pylon & Monument Installation",
+          "text": "New installs and face or cabinet replacements."
+        },
+        {
+          "title": "Removal & Rebrand Installation",
+          "text": "Old sign removal, patch and paint, and rollout installs.",
+          "dark": true
+        },
+        {
+          "title": "Photo Reports",
+          "text": "Before and after photos on every job, ready for your client."
+        }
       ]
     },
     {
@@ -38,10 +88,22 @@
       "eyebrow": "Why sign companies use us",
       "title": "Built to *Make You* Look Good",
       "steps": [
-        { "title": "White-Label", "text": "We represent your company on site." },
-        { "title": "Fast Quotes", "text": "Send drawings or a proof and the address." },
-        { "title": "Clear Updates", "text": "Scheduling, progress and photos from start to finish." },
-        { "title": "Statewide", "text": "Central Florida first, statewide projects on request." }
+        {
+          "title": "White-Label",
+          "text": "We represent your company on site."
+        },
+        {
+          "title": "Fast Quotes",
+          "text": "Send drawings or a proof and the address."
+        },
+        {
+          "title": "Clear Updates",
+          "text": "Scheduling, progress and photos from start to finish."
+        },
+        {
+          "title": "Statewide",
+          "text": "Central Florida first, statewide projects on request."
+        }
       ]
     },
     {
@@ -49,8 +111,16 @@
       "title": "Have a Project in *Florida*?",
       "text": "Send the address, drawings or proof, and your timeline. We'll get back to you with a quote.",
       "buttons": [
-        { "label": "Email Your RFQ", "href": "mailto:contact@orlandosignsservices.com", "style": "dark" },
-        { "label": "Call 321-201-1663", "href": "tel:3212011663", "style": "ghost-light" }
+        {
+          "label": "Email Your RFQ",
+          "href": "mailto:contact@orlandosignsservices.com",
+          "style": "dark"
+        },
+        {
+          "label": "Call 321-201-1663",
+          "href": "tel:3212011663",
+          "style": "ghost-light"
+        }
       ]
     }
   ]

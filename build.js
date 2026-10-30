@@ -56,10 +56,10 @@ function layout(page, body) {
 <a class="skip" href="#main">Skip to content</a>
 <header class="top">
   <div class="top__inner">
-    <a class="logo" href="/">ORLANDO <span>SIGNS</span> SERVICES</a>
+    <a class="logo" href="/"><span class="logo__dot" aria-hidden="true"></span>Orlando Signs Services</a>
     <input type="checkbox" id="menu" class="menu-toggle" aria-label="Open menu">
     <label for="menu" class="menu-btn" aria-hidden="true"><span></span></label>
-    <nav class="nav" aria-label="Main">${nav}<a class="btn btn--primary btn--sm" href="${site.cta.href}">${esc(site.cta.label)}</a></nav>
+    <nav class="nav" aria-label="Main">${nav}<a class="btn btn--dark btn--sm" href="${site.cta.href}">${esc(site.cta.label)}</a></nav>
   </div>
 </header>
 <main id="main">
@@ -79,6 +79,16 @@ ${body}
   </div>
   <p class="foot__legal">© ${new Date().getFullYear()} ${esc(site.name)}</p>
 </footer>
+<script>
+document.querySelectorAll(".tabs").forEach(function (g) {
+  g.addEventListener("click", function (e) {
+    var t = e.target.closest(".tab"); if (!t) return;
+    g.querySelectorAll(".tab").forEach(function (x) { x.classList.toggle("is-on", x === t); x.setAttribute("aria-pressed", x === t); });
+    var c = t.dataset.cat;
+    g.parentNode.querySelectorAll(".shelf__item").forEach(function (i) { i.classList.toggle("is-dim", c !== "all" && i.dataset.cat !== c); });
+  });
+});
+</script>
 </body>
 </html>`;
 }

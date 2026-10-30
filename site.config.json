@@ -10,14 +10,35 @@
   "instagram": "https://www.instagram.com/orlandosignsservices",
   "instagramHandle": "@orlandosignsservices",
   "nav": [
-    { "label": "Home", "href": "/" },
-    { "label": "Services", "href": "/services/" },
-    { "label": "For Sign Companies", "href": "/sign-companies/" },
-    { "label": "Sign Repair", "href": "/sign-repair/" },
-    { "label": "Service Areas", "href": "/service-areas/" },
-    { "label": "Contact", "href": "/contact/" }
+    {
+      "label": "Home",
+      "href": "/"
+    },
+    {
+      "label": "Services",
+      "href": "/services/"
+    },
+    {
+      "label": "For Sign Companies",
+      "href": "/sign-companies/"
+    },
+    {
+      "label": "Sign Repair",
+      "href": "/sign-repair/"
+    },
+    {
+      "label": "Service Areas",
+      "href": "/service-areas/"
+    },
+    {
+      "label": "Contact",
+      "href": "/contact/"
+    }
   ],
-  "cta": { "label": "Get a Quote", "href": "/contact/" },
+  "cta": {
+    "label": "Get a Quote",
+    "href": "/contact/"
+  },
   "ticker": [
     "Channel Letters",
     "Pylon & Pole Signs",
@@ -28,5 +49,105 @@
     "Site Surveys",
     "Permits",
     "Removal & Rebranding"
+  ],
+  "shelf": [
+    {
+      "src": "/assets/img/work-1.jpg",
+      "title": "Flush-Mount Letters",
+      "meta": "Storefront · Orlando area",
+      "cat": "letters"
+    },
+    {
+      "src": "/assets/img/gallery-2.jpg",
+      "title": "Pylon Sign",
+      "meta": "Highway frontage",
+      "cat": "pylon"
+    },
+    {
+      "src": "/assets/img/work-2.jpg",
+      "title": "Channel Letters",
+      "meta": "Illuminated · Restaurant",
+      "cat": "letters"
+    },
+    {
+      "src": "/assets/img/gallery-3.jpg",
+      "title": "Monument Sign",
+      "meta": "Community entrance",
+      "cat": "monument"
+    },
+    {
+      "src": "/assets/img/work-3.jpg",
+      "title": "Lit Storefront",
+      "meta": "Night view",
+      "cat": "letters"
+    },
+    {
+      "src": "/assets/img/install-2.jpg",
+      "title": "On the Lift",
+      "meta": "Installation day",
+      "cat": "install"
+    },
+    {
+      "src": "/assets/img/work-4.jpg",
+      "title": "Channel Letters",
+      "meta": "Raceway mount",
+      "cat": "letters"
+    },
+    {
+      "src": "/assets/img/repair-1.jpg",
+      "title": "Pylon & Price Sign",
+      "meta": "Gas station",
+      "cat": "pylon"
+    },
+    {
+      "src": "/assets/img/gallery-1.jpg",
+      "title": "Lightbox Sign",
+      "meta": "Storefront at night",
+      "cat": "lightbox"
+    },
+    {
+      "src": "/assets/img/repair-4.jpg",
+      "title": "Monument Sign",
+      "meta": "Office entrance",
+      "cat": "monument"
+    },
+    {
+      "src": "/assets/img/install-1.jpg",
+      "title": "Wiring & Assembly",
+      "meta": "Done to code",
+      "cat": "install"
+    },
+    {
+      "src": "/assets/img/repair-2.jpg",
+      "title": "Cabinet Sign",
+      "meta": "Plaza storefront",
+      "cat": "lightbox"
+    }
+  ],
+  "shelfTabs": [
+    [
+      "all",
+      "All work"
+    ],
+    [
+      "letters",
+      "Channel Letters"
+    ],
+    [
+      "pylon",
+      "Pylon"
+    ],
+    [
+      "monument",
+      "Monument"
+    ],
+    [
+      "lightbox",
+      "Lightbox"
+    ],
+    [
+      "install",
+      "Install Day"
+    ]
   ]
 }

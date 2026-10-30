@@ -7,6 +7,7 @@ const path = require("path");
 const { sections, esc } = require("./src/sections");
 
 const ROOT = __dirname;
+const BUILD_ID = Date.now().toString(36);
 const DIST = path.join(ROOT, "dist");
 const read = (p) => JSON.parse(fs.readFileSync(path.join(ROOT, p), "utf8"));
 
@@ -49,7 +50,7 @@ function layout(page, body) {
 <meta property="og:url" content="${url}">
 <meta property="og:type" content="website">
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/style.css?v=${BUILD_ID}">
 <script type="application/ld+json">${JSON.stringify(schema)}</script>
 </head>
 <body>

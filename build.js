@@ -1,165 +1,425 @@
-#!/usr/bin/env node
-// OSS Website Factory — turns content/*.json into a static site in dist/.
-// No dependencies: run with `node build.js`.
-
+// Genera el sitio completo de Orlando Signs Services.
+// node build.js preview  -> dist-preview/ (enlaces con index.html, para la vista previa)
+// node build.js          -> dist/ (direcciones limpias, para GitHub Pages)
 const fs = require("fs");
 const path = require("path");
-const { sections, esc } = require("./src/sections");
+const W = require("./content-wix");
+const L = require("./content-repair-local");
+require("./photos")(W, L);
 
-const ROOT = __dirname;
-const BUILD_ID = Date.now().toString(36);
-const DIST = path.join(ROOT, "dist");
-const read = (p) => JSON.parse(fs.readFileSync(path.join(ROOT, p), "utf8"));
+const MODE = process.argv[2] === "preview" ? "preview" : "prod";
+const OUT = path.join(__dirname, MODE === "preview" ? "dist-preview" : "dist");
+const S = W.site;
+const pages = []; // para el sitemap
 
-const site = read("site.config.json");
-const ctx = {
-  site,
-  photoExists: (src) => fs.existsSync(path.join(ROOT, src.replace(/^\//, ""))),
-};
+fs.rmSync(OUT, { recursive: true, force: true });
+fs.mkdirSync(path.join(OUT, "assets", "img"), { recursive: true });
+for (const f of fs.readdirSync(path.join(__dirname, "img"))) {
+  fs.copyFileSync(path.join(__dirname, "img", f), path.join(OUT, "assets", "img", f));
+}
 
-function layout(page, body) {
-  const url = `${site.url}/${page.slug ? page.slug + "/" : ""}`;
-  const title = page.slug ? `${page.title} | ${site.name}` : `${site.name} | ${page.title}`;
-  const nav = site.nav
-    .map((n) => {
-      const active = n.href === `/${page.slug ? page.slug + "/" : ""}`;
-      return `<a href="${n.href}"${active ? ' aria-current="page"' : ""}>${esc(n.label)}</a>`;
-    })
-    .join("");
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "HomeAndConstructionBusiness",
-    name: site.name,
-    url: site.url,
-    telephone: site.phone,
-    email: site.email,
-    areaServed: site.region,
-    address: { "@type": "PostalAddress", addressLocality: "Orlando", addressRegion: "FL", addressCountry: "US" },
-    sameAs: [site.instagram],
-  };
-  return `<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const areaBy = Object.fromEntries(L.areas.map((a) => [a.slug, a]));
+
+// ---------- enlaces ----------
+function rel(depth) { return depth === 0 ? "./" : "../".repeat(depth); }
+function link(depth, slug) {
+  if (!slug) return MODE === "preview" ? rel(depth) + "index.html" : rel(depth);
+  return rel(depth) + slug + (MODE === "preview" ? "/index.html" : "/");
+}
+function img(depth, f) { return rel(depth) + "assets/img/" + f; }
+
+// ---------- estilos (look de Wix: negro, naranja, títulos Arial en mayúsculas, Montserrat) ----------
+const CSS = `
+:root{--ink:#111111;--black:#0b0b0b;--orange:#f05a1a;--orange-dark:#c8460f;--paper:#ffffff;--mist:#f4f3f1;--line:#e3e0dc;--muted:#55534f;--on-dark:#f7f5f5;
+--display:Arial,Helvetica,sans-serif;--body:Montserrat,Arial,Helvetica,sans-serif;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.65}
+img{max-width:100%;display:block}
+a{color:var(--orange-dark)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:700;text-transform:uppercase;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(28px,4.4vw,48px);letter-spacing:.06em}
+h2{font-size:clamp(24px,3.2vw,36px);color:var(--orange);letter-spacing:.02em}
+h3{font-size:18px;letter-spacing:.04em}
+p{margin:0}
+.btn{display:inline-block;font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;border-radius:999px;padding:14px 28px;font-size:15px}
+.btn-black{background:var(--black);color:#fff}
+.btn-black:hover{background:#2a2a2a}
+.btn-orange{background:var(--orange);color:#fff}
+.btn-orange:hover{background:var(--orange-dark)}
+.btn-line{border:2px solid #fff;color:#fff;padding:12px 26px}
+a:focus-visible,.btn:focus-visible,summary:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+
+/* header */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--black)}
+.top{background:var(--black);color:#fff;position:sticky;top:env(safe-area-inset-top,0px);z-index:50}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+.logo img{height:44px;width:auto}
+.nav{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.nav a,.nav summary{color:#fff;text-decoration:none;font-size:14px;font-weight:500;cursor:pointer}
+.nav a:hover,.nav summary:hover{color:var(--orange)}
+.dd{position:relative}
+.dd summary{list-style:none}
+.dd summary::-webkit-details-marker{display:none}
+.dd summary::after{content:" ▾";font-size:11px}
+.dd .menu{position:absolute;top:calc(100% + 12px);left:-14px;background:var(--black);border:1px solid #2a2a2a;border-radius:8px;padding:8px;min-width:270px;display:grid;gap:2px;z-index:70}
+.dd .menu a{padding:8px 10px;border-radius:6px}
+.dd .menu a:hover{background:#1d1d1d}
+.call{white-space:nowrap}
+.burger{display:none}
+@media (max-width:980px){
+ .nav{display:none}
+ .burger{display:block}
+ .burger summary{list-style:none;color:#fff;font-family:var(--display);font-weight:700;letter-spacing:.1em;cursor:pointer;padding:8px 0}
+ .burger summary::-webkit-details-marker{display:none}
+ .burger[open] .mnav{display:grid}
+ .mnav{display:none;position:absolute;left:0;right:0;top:100%;background:var(--black);padding:12px max(16px,env(safe-area-inset-left,0px)) 20px;gap:4px;border-top:1px solid #222}
+ .mnav a{color:#fff;text-decoration:none;padding:9px 0;border-bottom:1px solid #1e1e1e}
+ .mnav .sub{padding-left:14px;font-size:14px;color:#ddd}
+ .top .call{display:none}
+}
+
+/* hero */
+.hero{position:relative;color:#fff;background:#222 center/cover no-repeat}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.62))}
+.hero .wrap{position:relative;padding-block:clamp(90px,14vw,170px) clamp(60px,8vw,90px);text-align:center;display:grid;gap:18px;justify-items:center}
+.hero p{max-width:780px;font-size:17px;color:var(--on-dark)}
+.hero .crumb{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:#ffd9c6}
+.hero .crumb a{color:#ffd9c6}
+.hero .btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+
+/* secciones */
+.sec{padding-block:clamp(56px,7vw,88px)}
+.sec.mist{background:var(--mist)}
+.sec.dark{background:var(--black);color:var(--on-dark)}
+.sec.dark h2{color:var(--orange)}
+.stack{display:grid;gap:20px}
+.center{text-align:center;justify-items:center}
+.narrow{max-width:820px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:32px;align-items:start}
+.two>*{min-width:0}
+.ticks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.ticks li{position:relative;padding-left:28px}
+.ticks li::before{content:"";position:absolute;left:0;top:.55em;width:12px;height:12px;border-radius:50%;background:var(--orange)}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:28px;display:grid;gap:14px}
+.sec.mist .panel{background:#fff}
+
+/* tiles con foto */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px}
+.tile{position:relative;display:block;border-radius:12px;overflow:hidden;aspect-ratio:4/3;max-width:100%;color:#fff;text-decoration:none}
+.tile img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.tile:hover img{transform:scale(1.05)}
+.tile span{position:absolute;inset:auto 0 0;padding:18px;font-family:var(--display);font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:linear-gradient(0deg,rgba(0,0,0,.78),transparent)}
+
+.why{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:18px}
+.why .panel h3{color:var(--orange)}
+
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:14px}
+.gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px}
+
+.quote{font-size:19px;font-style:italic;max-width:780px}
+
+.cta{background:var(--orange);color:#fff}
+.cta h2{color:#fff}
+.cta .wrap{padding-block:clamp(52px,6vw,76px);display:grid;gap:18px;justify-items:center;text-align:center}
+.cta .btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.cta .meta{font-size:15px}
+.cta .meta b{user-select:all}
+
+/* AREAS: formato por zonas */
+.arealist{border-top:2px solid var(--ink)}
+.arow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.7fr);gap:24px;padding-block:26px;border-bottom:1px solid var(--line);align-items:center}
+.arow h3{font-size:clamp(26px,3.4vw,40px);letter-spacing:.01em}
+.arow h3 a{color:var(--ink);text-decoration:none}
+.arow h3 a:hover{color:var(--orange)}
+.arow .county{font-size:13px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:6px}
+@media (max-width:760px){.arow{grid-template-columns:1fr;gap:14px}}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-block;border:1.5px solid var(--orange);color:var(--orange-dark);border-radius:999px;padding:7px 14px;font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.09em;text-transform:uppercase;text-decoration:none;background:#fff}
+.chip:hover{background:var(--orange);color:#fff}
+.sec.dark .chip{background:transparent;color:#ffb48f}
+.sec.dark .chip:hover{color:#fff}
+
+.note{border-left:4px solid var(--orange);background:#fff;padding:18px 20px;border-radius:0 10px 10px 0}
+.post p+p{margin-top:0}
+.post .stack{gap:14px}
+.post h2{font-size:22px;color:var(--ink);text-transform:none;letter-spacing:0}
+.posts{display:grid;gap:14px}
+.posts a{display:block;padding:22px;border:1px solid var(--line);border-radius:12px;text-decoration:none;color:var(--ink)}
+.posts a:hover{border-color:var(--orange)}
+.posts h3{text-transform:none;letter-spacing:0;font-size:20px}
+
+footer{background:var(--black);color:#cfcac6;font-size:14px}
+footer .wrap{padding-block:44px 28px;display:grid;gap:24px}
+footer .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:24px}
+footer h4{font-family:var(--display);color:#fff;text-transform:uppercase;letter-spacing:.1em;font-size:13px;margin:0 0 10px}
+footer a{color:#cfcac6;text-decoration:none;display:block;padding:3px 0}
+footer a:hover{color:var(--orange)}
+footer .line{border-top:1px solid #222;padding-top:18px;font-size:12px;color:#8f8a86}
+.preview-flag{background:#fff4d6;color:#4a3a00;font-size:13px;text-align:center;padding:8px 16px}
+@media (prefers-reduced-motion:reduce){.tile img{transition:none}}
+`;
+
+// ---------- piezas ----------
+const servicesMenu = W.services.list.map(([n, s]) => [n.replace(/\b\w+/g, (w) => w[0] + w.slice(1).toLowerCase()), s]);
+
+function header(d) {
+  const L1 = (s) => link(d, s);
+  const repairMenu = [["Sign Repair & Maintenance", W.repair.slug], ["Sign Repair by Area", "sign-repair-areas"], ...L.repairs.map((r) => [r.name, r.slug])];
+  const dd = (label, items) => `<details class="dd"><summary>${label}</summary><div class="menu">${items.map(([n, s]) => `<a href="${L1(s)}">${esc(n)}</a>`).join("")}</div></details>`;
+  const mobile = [["Home", ""], ["Services", "services"], ...servicesMenu.map(([n, s]) => ["sub:" + n, s]), ["Sign Companies", W.partner.slug], ["Sign Repair", W.repair.slug], ["Sign Repair by Area", "sign-repair-areas"], ...L.repairs.map((r) => ["sub:" + r.name, r.slug]), ["Our Work", "viewourwork"], ["About", "about"], ["Blog", "blog"], ["Contact", "contact"]];
+  return `<header class="top"><div class="wrap">
+<a class="logo" href="${L1("")}" aria-label="Orlando Signs Services home"><img src="${img(d, "logo.png")}" alt="Orlando Signs Services" width="146" height="44"></a>
+<nav class="nav" aria-label="Main">
+${dd("Services", [["All Services", "services"], ...servicesMenu])}
+<a href="${L1(W.partner.slug)}">Sign Companies</a>
+${dd("Sign Repair", repairMenu)}
+<a href="${L1("about")}">About</a>
+<a href="${L1("contact")}">Contact</a>
+${dd("More", [["Our Work", "viewourwork"], ["Blog", "blog"], ["Book Online", "book-online"]])}
+<a class="btn btn-orange call" href="${S.phoneHref}">Call Us Now</a>
+</nav>
+<details class="burger"><summary>Menu</summary><div class="mnav">${mobile.map(([n, s]) => n.startsWith("sub:") ? `<a class="sub" href="${L1(s)}">${esc(n.slice(4))}</a>` : `<a href="${L1(s)}">${esc(n)}</a>`).join("")}<a href="${S.phoneHref}">Call ${S.phone}</a></div></details>
+</div></header>`;
+}
+
+function footer(d) {
+  const L1 = (s) => link(d, s);
+  return `<footer><div class="wrap">
+<div class="cols">
+<div><h4>Orlando Signs Services</h4><p>Orlando, FL · Serving Central Florida</p><p style="margin-top:8px"><span style="user-select:all">${S.email}</span><br><span style="user-select:all">${S.phone}</span></p><a href="${S.instagram}" style="margin-top:8px">Follow us on Instagram</a></div>
+<div><h4>Installation</h4>${servicesMenu.map(([n, s]) => `<a href="${L1(s)}">${esc(n)}</a>`).join("")}<a href="${L1(W.partner.slug)}">For Sign Companies</a></div>
+<div><h4>Sign Repair</h4><a href="${L1(W.repair.slug)}">Sign Repair & Maintenance</a>${L.repairs.map((r) => `<a href="${L1(r.slug)}">${esc(r.name)}</a>`).join("")}</div>
+<div><h4>Repair by Area</h4>${L.areas.map((a) => `<a href="${L1("sign-repair-" + a.slug)}">${esc(a.name)}</a>`).join("")}<a href="${L1("sign-repair-areas")}"><b>All areas</b></a></div>
+</div>
+<div class="line">${esc(S.footerLine)} · <a href="${L1("about")}" style="display:inline">About</a> · <a href="${L1("blog")}" style="display:inline">Blog</a> · <a href="${L1("contact")}" style="display:inline">Contact</a></div>
+</div></footer>`;
+}
+
+function cta(d, title, text) {
+  return `<section class="cta"><div class="wrap"><h2>${esc(title)}</h2>${text ? `<p>${esc(text)}</p>` : ""}<div class="btns"><a class="btn btn-black" href="${link(d, "contact")}">Request a Free Quote</a><a class="btn btn-line" href="${S.phoneHref}">Call ${S.phone}</a></div><p class="meta">Email <b>${S.email}</b> · Phone <b>${S.phone}</b></p></div></section>`;
+}
+
+function hero(d, { title, text, photo, crumb, buttons = true, h = "h1" }) {
+  return `<section class="hero" style="background-image:url('${img(d, photo)}')"><div class="wrap">${crumb ? `<div class="crumb">${crumb}</div>` : ""}<${h}>${esc(title)}</${h}>${text ? `<p>${esc(text)}</p>` : ""}${buttons ? `<div class="btns"><a class="btn btn-black" href="${link(d, "contact")}">Request a Free Quote</a></div>` : ""}</div></section>`;
+}
+
+const gallery = (d, list) => `<div class="gallery">${list.map((f) => { const [src, alt] = Array.isArray(f) ? f : [f, "Commercial sign installation by Orlando Signs Services in Central Florida"]; return `<img src="${img(d, src)}" alt="${esc(alt)}" loading="lazy">`; }).join("")}</div>`;
+const ticks = (list) => `<ul class="ticks">${list.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>`;
+
+function schema(extra) {
+  const base = { "@context": "https://schema.org", "@type": "LocalBusiness", name: S.name, url: S.domain + "/", telephone: "+1-" + S.phone, email: S.email, image: S.domain + "/assets/img/logo.png", address: { "@type": "PostalAddress", addressLocality: "Orlando", addressRegion: "FL", addressCountry: "US" }, areaServed: L.areas.map((a) => a.name).concat(["Central Florida"]) };
+  return `<script type="application/ld+json">${JSON.stringify(Object.assign(base, extra || {}))}</script>`;
+}
+
+function page({ slug, depth, title, desc, body, extraSchema }) {
+  const canonical = S.domain + "/" + (slug ? slug + "/" : "");
+  pages.push(slug);
+  const html = `<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>${esc(title)}</title>
-<meta name="description" content="${esc(page.description)}">
-<link rel="canonical" href="${url}">
-<meta property="og:title" content="${esc(title)}">
-<meta property="og:description" content="${esc(page.description)}">
-<meta property="og:url" content="${url}">
-<meta property="og:type" content="website">
-<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="/assets/css/style.css?v=${BUILD_ID}">
-<script type="application/ld+json">${JSON.stringify(schema)}</script>
-</head>
-<body>
-<a class="skip" href="#main">Skip to content</a>
-<header class="top">
-  <div class="top__inner">
-    <a class="logo" href="/"><span class="logo__dot" aria-hidden="true"></span>Orlando Signs Services</a>
-    <input type="checkbox" id="menu" class="menu-toggle" aria-label="Open menu">
-    <label for="menu" class="menu-btn" aria-hidden="true"><span></span></label>
-    <nav class="nav" aria-label="Main">${nav}<a class="btn btn--dark btn--sm" href="${site.cta.href}">${esc(site.cta.label)}</a></nav>
-  </div>
-</header>
-<main id="main">
-${body}
-</main>
-<footer class="foot">
-  <div class="wrap foot__inner">
-    <div>
-      <img class="foot__logo" src="/assets/img/logo.png" alt="${esc(site.name)} logo" width="240" height="78">
-      <p>${esc(site.city)} · Serving ${esc(site.region)}</p>
-    </div>
-    <div>
-      <p><a href="${site.phoneHref}">${esc(site.phone)}</a></p>
-      <p><a href="mailto:${site.email}">${esc(site.email)}</a></p>
-      <p><a href="${site.instagram}">${esc(site.instagramHandle)}</a></p>
-    </div>
-  </div>
-  <p class="foot__legal">© ${new Date().getFullYear()} ${esc(site.name)}</p>
-</footer>
-<script>
-document.querySelectorAll(".tabs").forEach(function (g) {
-  g.addEventListener("click", function (e) {
-    var t = e.target.closest(".tab"); if (!t) return;
-    g.querySelectorAll(".tab").forEach(function (x) { x.classList.toggle("is-on", x === t); x.setAttribute("aria-pressed", x === t); });
-    var c = t.dataset.cat;
-    g.parentNode.querySelectorAll(".shelf__item").forEach(function (i) { i.classList.toggle("is-dim", c !== "all" && i.dataset.cat !== c); });
-  });
-});
-</script>
-</body>
-</html>`;
-}
-
-function renderPage(page) {
-  const body = page.sections
-    .map((s) => {
-      const fn = sections[s.type];
-      if (!fn) throw new Error(`Unknown section type "${s.type}" in page "${page.slug || "home"}"`);
-      return fn(s, ctx);
-    })
-    .join("\n");
-  return layout(page, body);
-}
-
-// BASE_PATH lets the site work under /oss-website/ on github.io before the custom domain is connected
-const BASE = (process.env.BASE_PATH || "").replace(/\/$/, "");
-const withBase = (html) => (BASE ? html.replace(/(href|src)="\//g, `$1="${BASE}/`) : html);
-
-function write(slug, html) {
-  html = withBase(html);
-  const dir = path.join(DIST, slug);
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="${esc(desc)}">
+<link rel="canonical" href="${canonical}">
+<meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:type" content="website"><meta property="og:url" content="${canonical}">
+<link rel="icon" href="${img(depth, "favicon.svg")}" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>${CSS}</style>
+${schema(extraSchema)}
+</head><body>
+${MODE === "preview" ? `<div class="preview-flag">Vista previa privada · todavía no está publicada en orlandosignsservices.com</div>` : ""}
+${header(depth)}
+<main>${body}</main>
+${footer(depth)}
+</body></html>`;
+  const dir = slug ? path.join(OUT, slug) : OUT;
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, "index.html"), html);
 }
 
-function copyDir(from, to) {
-  if (!fs.existsSync(from)) return;
-  fs.mkdirSync(to, { recursive: true });
-  for (const f of fs.readdirSync(from)) {
-    const a = path.join(from, f), b = path.join(to, f);
-    fs.statSync(a).isDirectory() ? copyDir(a, b) : fs.copyFileSync(a, b);
-  }
+// ================== SECCIÓN COMPAÑÍAS (igual que Wix) ==================
+{
+  const H = W.home, d = 0;
+  page({ slug: "", depth: d, title: H.title, desc: H.desc, body: `
+${hero(d, { title: H.heroTitle, text: H.heroText, photo: H.heroPhoto })}
+<section class="sec"><div class="wrap two"><div class="stack"><h2>${esc(H.aboutTitle)}</h2><p>${esc(H.aboutText)}</p></div><img src="${img(d, H.aboutPhoto)}" alt="Pylon sign with Orlando Signs Services logo at sunset" style="border-radius:12px;width:100%;aspect-ratio:4/3;object-fit:cover"></div></section>
+<section class="sec mist"><div class="wrap stack"><h2 style="text-align:center">${esc(H.servicesTitle)}</h2><div class="tiles">${H.tiles.map(([t, s, f]) => `<a class="tile" href="${link(d, s)}"><img src="${img(d, f)}" alt="${esc(t)}" loading="lazy"><span>${esc(t)}</span></a>`).join("")}</div></div></section>
+<section class="sec"><div class="wrap stack"><h2 style="text-align:center">${esc(H.whyTitle)}</h2><div class="why">${H.why.map(([t, x]) => `<div class="panel"><h3>${esc(t)}</h3><p>${esc(x)}</p></div>`).join("")}</div></div></section>
+<section class="sec dark"><div class="wrap stack"><h2 style="text-align:center">SIGN REPAIR NEAR YOU</h2><p style="text-align:center;max-width:760px;margin-inline:auto">Lights out, a broken face or a dark letter? Find sign repair in your part of Central Florida.</p><div class="chips" style="justify-content:center">${L.areas.map((a) => `<a class="chip" href="${link(d, "sign-repair-" + a.slug)}">${esc(a.name)}</a>`).join("")}</div></div></section>
+<section class="sec"><div class="wrap stack"><h2 style="text-align:center">${esc(H.recentTitle)}</h2>${gallery(d, H.gallery)}<p style="text-align:center">${esc(H.recentText)}</p></div></section>
+<section class="sec mist"><div class="wrap stack center"><h2>${esc(H.reviewTitle)}</h2><p class="quote">“${esc(H.review)}”</p></div></section>
+${cta(d, H.ctaTitle, H.ctaText)}` });
 }
 
-// Service, city and service × city pages come from src/generate.js
-const generate = require("./src/generate");
-function cityPages() {
-  return generate(site, read("content/services.json"), read("content/service-areas.json"));
+{
+  const A = W.about, d = 1;
+  page({ slug: A.slug, depth: d, title: A.title, desc: A.desc, body: `
+${hero(d, { title: A.whoTitle, text: "", photo: A.whoPhoto, buttons: false })}
+<section class="sec"><div class="wrap two"><p>${esc(A.who)}</p><img src="${img(d, A.whoPhoto)}" alt="Restaurant storefront channel letter sign installed in Central Florida" style="border-radius:12px;width:100%;aspect-ratio:4/3;object-fit:cover"></div></section>
+<section class="hero" style="background-image:url('${img(d, A.heroPhoto)}')"><div class="wrap stack center narrow" style="margin-inline:auto"><h2 style="color:#fff">${esc(A.missionTitle)}</h2>${A.mission.map((m) => `<p>${esc(m)}</p>`).join("")}</div></section>
+<section class="sec"><div class="wrap stack"><h2 style="text-align:center">${esc(A.valuesTitle)}</h2><div class="why">${A.values.map(([t, x]) => `<div class="panel"><h3>${esc(t)}</h3><p>${esc(x)}</p></div>`).join("")}</div></div></section>
+${cta(d, "READY TO WORK WITH US?", "")}` });
 }
-// ---- build ----
-fs.rmSync(DIST, { recursive: true, force: true });
-const pages = fs
-  .readdirSync(path.join(ROOT, "content/pages"))
-  .filter((f) => f.endsWith(".json"))
-  .map((f) => read(`content/pages/${f}`))
-  .concat(cityPages());
 
-for (const p of pages) write(p.slug, renderPage(p));
-copyDir(path.join(ROOT, "assets"), path.join(DIST, "assets"));
+{
+  const V = W.services, d = 1;
+  page({ slug: V.slug, depth: d, title: V.title, desc: V.desc, body: `
+${hero(d, { title: V.h1, text: V.intro[0], photo: V.heroPhoto })}
+<section class="sec"><div class="wrap narrow" style="margin-inline:auto"><p>${esc(V.intro[1])}</p></div></section>
+<section class="sec mist"><div class="wrap stack"><h2 style="text-align:center">SERVICES</h2><div class="two">${V.list.map(([t, s, x, ph]) => `<div class="panel"><img src="${img(d, ph)}" alt="${esc(t.toLowerCase())} by Orlando Signs Services" loading="lazy" style="width:120px;height:120px;border-radius:50%;object-fit:cover"><h3><a href="${link(d, s)}" style="color:var(--ink);text-decoration:none">${esc(t)}</a></h3><p>${esc(x)}</p><a href="${link(d, s)}">Learn more</a></div>`).join("")}</div></div></section>
+<section class="sec"><div class="wrap stack"><h2>${esc(V.whyTitle)}</h2>${ticks(V.why)}<p>${esc(V.areas)}</p></div></section>
+${cta(d, V.cta, "")}` });
+}
 
-// 404, sitemap, robots, CNAME
-fs.writeFileSync(
-  path.join(DIST, "404.html"),
-  withBase(renderPage({
-    slug: "404",
-    title: "Page Not Found",
-    description: "This page doesn't exist.",
-    sections: [{ type: "cta", title: "Page *Not Found*", text: "Let's get you back on track.", buttons: [{ label: "Go Home", href: "/", style: "dark" }] }],
-  }))
-);
+function installPage(P, slug) {
+  const d = 1;
+  page({ slug, depth: d, title: P.title, desc: P.desc, body: `
+${hero(d, { title: P.h1, text: P.lead, photo: P.mainPhoto })}
+<section class="sec"><div class="wrap two">
+<div class="stack"><h2>${esc(P.aboutTitle || P.forTitle)}</h2><p>${esc(P.about || P.forText)}</p><img src="${img(d, P.mainPhoto)}" alt="${esc(P.h1.toLowerCase())} in Central Florida" loading="lazy" style="border-radius:12px;width:100%;aspect-ratio:4/3;object-fit:cover"></div>
+<div class="panel"><h3>${P.includes ? "What's included" : esc(P.handleTitle)}</h3>${ticks(P.includes || P.handle)}</div>
+</div></section>
+<section class="sec mist"><div class="wrap stack"><h2>${P.whyTitle ? esc(P.whyTitle) : "WHY CHOOSE US"}</h2>${ticks(P.why)}</div></section>
+<section class="sec"><div class="wrap stack"><h2 style="text-align:center">${esc(P.recentTitle)}</h2>${gallery(d, P.photos)}<p style="text-align:center">${esc(P.areas)}</p></div></section>
+${cta(d, P.cta, "")}` });
+}
+W.installs.forEach((P) => installPage(P, P.slug));
+installPage(W.partner, W.partner.slug);
+
+{
+  const K = W.work, d = 1;
+  page({ slug: K.slug, depth: d, title: K.title, desc: K.desc, body: `
+${hero(d, { title: K.h1, text: K.lead, photo: K.groups[0][1][0], buttons: false })}
+${K.groups.map(([t, list], i) => `<section class="sec${i % 2 ? " mist" : ""}"><div class="wrap stack"><h2>${esc(t)}</h2>${gallery(d, list)}</div></section>`).join("")}
+${cta(d, K.cta, "")}` });
+}
+
+{
+  const C = W.contact, d = 1;
+  page({ slug: C.slug, depth: d, title: C.title, desc: C.desc, body: `
+${hero(d, { title: C.h1, text: C.text, photo: C.photo, buttons: false })}
+<section class="sec"><div class="wrap two">
+<div class="stack"><h2>GET A FREE QUOTE</h2><p>Send us the address, photos of the sign and what you need. We reply the same day.</p><p>Email: <b style="user-select:all">${S.email}</b><br>Phone: <b style="user-select:all">${S.phone}</b></p><p>Orlando, FL · Serving Central Florida</p></div>
+<div class="panel" id="quote-form">${MODE === "preview" ? `<h3>Quote form</h3><p>Aquí va el formulario de Lead Connector (GoHighLevel). Se conecta antes de publicar, para que cada cotización llegue directo a tu CRM.</p>` : `<!-- LEAD_CONNECTOR_FORM -->`}</div>
+</div></section>` });
+}
+
+{
+  const d = 1;
+  page({ slug: W.book.slug, depth: d, title: W.book.title, desc: W.book.desc, body: `
+${hero(d, { title: "BOOK ONLINE", text: "Book a site survey or a sign service call.", photo: "c33736_9d6cab.jpg", buttons: false })}
+<section class="sec"><div class="wrap stack center narrow" style="margin-inline:auto">${MODE === "preview" ? `<div class="note">Aquí va el calendario de GoHighLevel que reemplaza el Book Online de Wix.</div>` : `<!-- LEAD_CONNECTOR_CALENDAR -->`}<p>Prefer to talk? Call <b style="user-select:all">${S.phone}</b> or email <b style="user-select:all">${S.email}</b>.</p></div></section>` });
+}
+
+// Blog (mismas direcciones /blog y /post/...)
+{
+  const B = W.blog;
+  page({ slug: "blog", depth: 1, title: B.title, desc: "Sign installation, permits and repair tips for businesses and sign companies in Orlando and Central Florida.", body: `
+${hero(1, { title: "ALL POSTS", text: "", photo: "c33736_0a41f7.jpg", buttons: false })}
+<section class="sec"><div class="wrap posts narrow" style="margin-inline:auto">${B.posts.map((p) => `<a href="${link(1, "post/" + p.slug)}"><h3>${esc(p.title)}</h3><p style="color:var(--muted);margin-top:6px">${esc(p.sections[0][1].slice(0, 170))}…</p></a>`).join("")}</div></section>` });
+  B.posts.forEach((p) => {
+    const d = 2;
+    page({ slug: "post/" + p.slug, depth: d, title: p.title, desc: p.sections[0][1].slice(0, 155), extraSchema: {}, body: `
+${hero(d, { title: p.title, text: "", photo: "c33736_297144.jpg", buttons: false, crumb: `<a href="${link(d, "blog")}">Blog</a>` })}
+<section class="sec post"><div class="wrap narrow stack" style="margin-inline:auto">${p.sections.map(([h, x]) => `<h2>${esc(h)}</h2><p>${esc(x)}</p>`).join("")}</div></section>
+${cta(d, "READY TO GET YOUR SIGN INSTALLED?", "")}` });
+  });
+}
+
+// Wix tenía /portfolio-collections/my-portfolio vacío: se manda a Our Work
+{
+  const dir = path.join(OUT, "portfolio-collections", "my-portfolio");
+  fs.mkdirSync(dir, { recursive: true });
+  const to = link(2, "viewourwork");
+  fs.writeFileSync(path.join(dir, "index.html"), `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Our Work</title><meta http-equiv="refresh" content="0; url=${to}"><link rel="canonical" href="${S.domain}/viewourwork"></head><body><a href="${to}">Our Work</a></body></html>`);
+}
+
+// ================== SIGN REPAIR (Wix + formato por zonas) ==================
+{
+  const R = W.repair, d = 1;
+  page({ slug: R.slug, depth: d, title: R.title, desc: R.desc, body: `
+${hero(d, { title: R.h1, text: R.lead, photo: R.mainPhoto })}
+<section class="sec"><div class="wrap two">
+<div class="stack"><h2>${esc(R.serviceTitle)}</h2><p>${esc(R.serviceText)}</p></div>
+<div class="panel"><h3>${esc(R.listTitle)}</h3>${ticks(R.list)}</div>
+</div></section>
+<section class="sec dark"><div class="wrap stack"><h2>WHAT DOES YOUR SIGN NEED?</h2><div class="tiles">${L.repairs.map((r) => `<a class="tile" href="${link(d, r.slug)}"><img src="${img(d, r.photos[0])}" alt="${esc(r.name)}" loading="lazy"><span>${esc(r.name)}</span></a>`).join("")}</div></div></section>
+<section class="sec mist"><div class="wrap two"><div class="stack"><h2>${esc(R.packageTitle)}</h2><p>${esc(R.packageIntro)}</p>${ticks(R.package)}<p>${esc(R.packageOutro)}</p></div><div>${gallery(d, [L.repairs[0].photos[1], L.repairs[1].photos[0]])}</div></div></section>
+<section class="sec"><div class="wrap stack"><h2>SIGN REPAIR BY AREA</h2>${areaList(d)}</div></section>
+<section class="sec mist"><div class="wrap stack"><h2 style="text-align:center">${esc(R.recentTitle)}</h2>${gallery(d, R.photos)}<p style="text-align:center">${esc(R.areas)}</p></div></section>
+${newSigns(d)}
+${cta(d, R.cta, "")}` });
+}
+
+
+// Nota para clientes locales: también hacemos letreros nuevos (sin enlazar a la sección de compañías)
+function newSigns(d, place) {
+  const where = place ? ` in ${esc(place)}` : "";
+  return `<section class="sec mist"><div class="wrap two"><div class="stack"><h2>NEED A NEW SIGN INSTALLED${place ? " IN " + esc(place) : ""}?</h2><p>Besides repairs and maintenance, we also install new signs for local businesses${where} and handle the permits: channel letters, lightboxes, cabinet signs, monument and pylon signs.</p></div><div class="panel"><h3>Installation services</h3><ul class="ticks"><li>Sign installation and electrical connection</li><li>Permits and landlord paperwork</li><li>Removal of the old sign</li></ul><a class="btn btn-orange" href="${link(d, "contact")}" style="justify-self:start">Ask About Installation</a></div></div></section>`;
+}
+function areaList(d, only) {
+  return `<div class="arealist">${(only || L.areas).map((a) => `<div class="arow"><div><h3><a href="${link(d, "sign-repair-" + a.slug)}">${esc(a.name)}</a></h3><div class="county">${esc(a.county)}</div></div><div class="chips">${L.repairs.map((r) => `<a class="chip" href="${link(d, r.slug + "-" + a.slug)}">${esc(r.name)}</a>`).join("")}</div></div>`).join("")}</div>`;
+}
+
+// Página "Areas" (la lista estilo GLPX)
+page({ slug: "sign-repair-areas", depth: 1, title: "Sign Repair Areas in Orlando & Central Florida | Orlando Signs Services", desc: "Find business sign repair near you: LED repair, sign face replacement, channel letter repair, lighting, cleaning and maintenance in Downtown Orlando, I-Drive, Dr. Phillips, Lake Nona, Winter Park, Kissimmee and more.", body: `
+${hero(1, { title: "SIGN REPAIR AREAS WE SERVE", text: "Pick your area and the repair you need. Every page tells you what we fix there and who handles sign permits for that address.", photo: "06307d_715008.jpg", crumb: `<a href="${link(1, W.repair.slug)}">Sign Repair</a>` })}
+<section class="sec"><div class="wrap">${areaList(1)}</div></section>
+<section class="sec mist"><div class="wrap stack center narrow" style="margin-inline:auto"><h2>DON'T SEE YOUR AREA?</h2><p>We repair signs across all of Central Florida, from Sanford to Clermont and Kissimmee. Call or send photos of your sign and the address.</p></div></section>
+${newSigns(1)}
+${cta(1, "SIGN NOT LOOKING ITS BEST?", "")}` });
+
+// Una página por zona
+L.areas.forEach((a) => {
+  const d = 1;
+  const near = a.nearby.map((s) => areaBy[s]);
+  page({ slug: "sign-repair-" + a.slug, depth: d, title: `Sign Repair in ${a.name}, FL | LED, Faces & Letters | Orlando Signs Services`, desc: `Business sign repair in ${a.name}: LED and lighting repair, sign face replacement, channel letter repair, neon to LED, cleaning and maintenance. Request a quote.`, extraSchema: { areaServed: a.name }, body: `
+${hero(d, { title: `SIGN REPAIR IN ${a.name}`, text: a.about, photo: L.repairs[0].photos[0], crumb: `<a href="${link(d, "sign-repair-areas")}">Sign Repair Areas</a> · ${esc(a.county)}` })}
+<section class="sec"><div class="wrap stack"><h2>WHAT DOES YOUR SIGN NEED IN ${esc(a.name)}?</h2><div class="two">${L.repairs.map((r) => `<div class="panel"><h3><a href="${link(d, r.slug + "-" + a.slug)}" style="color:var(--ink);text-decoration:none">${esc(r.name)}</a></h3><p>${esc(r.short)}</p><a href="${link(d, r.slug + "-" + a.slug)}">${esc(r.name)} in ${esc(a.name)}</a></div>`).join("")}</div></div></section>
+<section class="sec mist"><div class="wrap two"><div class="stack"><h2>SIGNS WE SERVICE HERE</h2><p>In ${esc(a.name)} we mostly work on ${esc(a.typical)}. Every sign is different, so we quote each one after a quick look.</p></div><div class="note"><h3 style="margin-bottom:8px">Permits in ${esc(a.name)}</h3><p>Sign permits for most addresses here go through ${esc(a.permit)}. Many repairs don't need a permit at all; we tell you before any work starts.</p></div></div></section>
+<section class="sec"><div class="wrap stack"><h2>NEARBY AREAS</h2>${areaList(d, near)}</div></section>
+${newSigns(d, a.name)}
+${cta(d, `NEED A SIGN REPAIRED IN ${a.name}?`, "Send photos of your sign and the address. We reply the same day.")}` });
+});
+
+// Una página por reparación (todas las zonas)
+L.repairs.forEach((r) => {
+  const d = 1;
+  page({ slug: r.slug, depth: d, title: `${r.name} Orlando & Central Florida | Orlando Signs Services`, desc: `${r.name} for businesses in Orlando and Central Florida. ${r.short} Request a quote.`, body: `
+${hero(d, { title: `${r.name.toUpperCase()} IN ORLANDO & CENTRAL FLORIDA`, text: r.intro, photo: r.photos[0], crumb: `<a href="${link(d, W.repair.slug)}">Sign Repair</a>` })}
+<section class="sec"><div class="wrap two"><div class="panel"><h3>Signs it needs attention</h3>${ticks(r.signs)}</div><div class="panel"><h3>What we do</h3>${ticks(r.fix)}</div></div></section>
+<section class="sec mist"><div class="wrap stack"><h2>${esc(r.name)} BY AREA</h2><div class="chips">${L.areas.map((a) => `<a class="chip" href="${link(d, r.slug + "-" + a.slug)}">${esc(a.name)}</a>`).join("")}</div><div class="note"><p>${esc(r.permit)}</p></div></div></section>
+<section class="sec"><div class="wrap stack"><h2>RECENT SIGN WORK</h2>${gallery(d, r.photos)}</div></section>
+${newSigns(d)}
+${cta(d, `NEED ${r.name.toUpperCase()}?`, "Send photos of your sign and the address. We reply the same day.")}` });
+});
+
+// Reparación × zona
+L.repairs.forEach((r) => L.areas.forEach((a) => {
+  const d = 1, slug = r.slug + "-" + a.slug;
+  const others = L.repairs.filter((x) => x !== r);
+  page({ slug, depth: d, title: `${r.name} in ${a.name}, FL | Orlando Signs Services`, desc: `${r.name} in ${a.name}. ${r.short} Local crew, fast quotes. Call ${S.phone}.`, extraSchema: { areaServed: a.name, makesOffer: { "@type": "Offer", itemOffered: { "@type": "Service", name: `${r.name} in ${a.name}` } } }, body: `
+${hero(d, { title: `${r.name} IN ${a.name}`, text: r.intro, photo: r.photos[0], crumb: `<a href="${link(d, "sign-repair-" + a.slug)}">Sign Repair in ${esc(a.name)}</a> · ${esc(a.county)}` })}
+<section class="sec"><div class="wrap two">
+<div class="stack"><h2>${esc(r.name)} FOR ${esc(a.name)} BUSINESSES</h2><p>${esc(a.about)}</p><p>Most of the signs we service in ${esc(a.name)} are ${esc(a.typical)}, and ${esc(r.name.toLowerCase())} is one of the most common calls we get for them.</p></div>
+<div class="panel"><h3>Signs it needs attention</h3>${ticks(r.signs)}</div>
+</div></section>
+<section class="sec mist"><div class="wrap two">
+<div class="panel"><h3>What we do</h3>${ticks(r.fix)}</div>
+<div class="note"><h3 style="margin-bottom:8px">Permits in ${esc(a.name)}</h3><p>${esc(r.permit)} For most addresses in ${esc(a.name)}, permits go through ${esc(a.permit)}.</p></div>
+</div></section>
+<section class="sec"><div class="wrap stack"><h2>RECENT SIGN WORK</h2>${gallery(d, r.photos)}</div></section>
+<section class="sec dark"><div class="wrap stack"><h2>OTHER SIGN REPAIRS IN ${esc(a.name)}</h2><div class="chips">${others.map((x) => `<a class="chip" href="${link(d, x.slug + "-" + a.slug)}">${esc(x.name)}</a>`).join("")}</div>
+<h2 style="margin-top:18px">${esc(r.name)} NEARBY</h2><div class="chips">${a.nearby.map((s) => `<a class="chip" href="${link(d, r.slug + "-" + s)}">${esc(areaBy[s].name)}</a>`).join("")}</div></div></section>
+${newSigns(d, a.name)}
+${cta(d, `NEED ${r.name.toUpperCase()} IN ${a.name}?`, "Send photos of your sign and the address. We reply the same day.")}` });
+}));
+
+// ---------- sitemap, robots, 404 ----------
 const today = new Date().toISOString().slice(0, 10);
-fs.writeFileSync(
-  path.join(DIST, "sitemap.xml"),
-  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages
-    .map((p) => `  <url><loc>${site.url}/${p.slug ? p.slug + "/" : ""}</loc><lastmod>${today}</lastmod></url>`)
-    .join("\n")}\n</urlset>\n`
-);
-fs.writeFileSync(path.join(DIST, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: ${site.url}/sitemap.xml\n`);
-if (process.env.CUSTOM_DOMAIN === "true") fs.writeFileSync(path.join(DIST, "CNAME"), site.domain + "\n");
-fs.writeFileSync(path.join(DIST, ".nojekyll"), "");
-
-console.log(`Built ${pages.length} pages into dist/`);
+fs.writeFileSync(path.join(OUT, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map((p) => `<url><loc>${S.domain}/${p ? p + "/" : ""}</loc><lastmod>${today}</lastmod></url>`).join("\n")}\n</urlset>\n`);
+fs.writeFileSync(path.join(OUT, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: ${S.domain}/sitemap.xml\n`);
+console.log(MODE, "pages:", pages.length, "->", OUT);

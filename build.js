@@ -8,6 +8,8 @@ const L = require("./content-repair-local");
 require("./photos")(W, L);
 
 const MODE = process.argv[2] === "preview" ? "preview" : "prod";
+// Mientras el dominio siga en Wix, la copia de prueba no se indexa en Google (evita contenido duplicado).
+const NOINDEX = MODE === "preview" || process.env.CUSTOM_DOMAIN !== "true";
 const OUT = path.join(__dirname, MODE === "preview" ? "dist-preview" : "dist");
 const S = W.site;
 const pages = []; // para el sitemap
@@ -222,7 +224,7 @@ function page({ slug, depth, title, desc, body, extraSchema }) {
 <title>${esc(title)}</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="${esc(desc)}">
-<link rel="canonical" href="${canonical}">
+<link rel="canonical" href="${canonical}">${NOINDEX ? `\n<meta name="robots" content="noindex, nofollow">` : ""}
 <meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:type" content="website"><meta property="og:url" content="${canonical}">
 <link rel="icon" href="${img(depth, "favicon.svg")}" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -421,5 +423,5 @@ ${cta(d, `NEED ${r.name.toUpperCase()} IN ${a.name}?`, "Send photos of your sign
 // ---------- sitemap, robots, 404 ----------
 const today = new Date().toISOString().slice(0, 10);
 fs.writeFileSync(path.join(OUT, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map((p) => `<url><loc>${S.domain}/${p ? p + "/" : ""}</loc><lastmod>${today}</lastmod></url>`).join("\n")}\n</urlset>\n`);
-fs.writeFileSync(path.join(OUT, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: ${S.domain}/sitemap.xml\n`);
+fs.writeFileSync(path.join(OUT, "robots.txt"), NOINDEX ? `User-agent: *\nDisallow: /\n` : `User-agent: *\nAllow: /\nSitemap: ${S.domain}/sitemap.xml\n`);
 console.log(MODE, "pages:", pages.length, "->", OUT);

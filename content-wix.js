@@ -245,7 +245,7 @@ module.exports = {
     title: "Contact Orlando Signs Services | Expert Sign Solutions in Orlando, FL",
     desc: "Orlando Signs Services is a commercial sign installation company in Orlando, FL, serving sign companies, contractors and businesses across Central Florida.",
     h1: "CONTACT US",
-    text: "Send us the address, photos or drawings of the sign and what you need. Our crews install and service signs for sign companies, contractors and businesses across Orlando and Central Florida.",
+    text: "Commercial sign installation and service for sign companies, contractors and businesses across Central Florida. Tell us about your project and we'll reply the same day.",
   },
 
   book: {

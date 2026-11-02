@@ -60,7 +60,7 @@ module.exports = function apply(W, L) {
     ["RECENT INTERIOR SIGN INSTALLATIONS", map["interior-sign-installation"][1]],
     ["RECENT SIGN REMOVAL PROJECTS", map["sign-removal-rebranding"][1]],
   ].map(([t, g]) => [t, g.map(j)]);
-  W.contact.photo = j("c837a6_ffd2db"); // foto futurista de Wix (elegida por Os, 2 nov)
+  W.contact.photo = j("c33736_1f9cce"); // temporal: Saku de noche (foto propia). La de Wix (c837a6) solo se puede usar dentro de Wix.
 
   // SIGN REPAIR LOCAL: fotos de tu Wix según el tipo de reparación
   const R = {

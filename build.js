@@ -20,6 +20,8 @@ for (const f of fs.readdirSync(path.join(__dirname, "img"))) {
   fs.copyFileSync(path.join(__dirname, "img", f), path.join(OUT, "assets", "img", f));
 }
 
+// Mismo widget de Lead Connector que usa hoy la página Contact de Wix
+const LC_WIDGET = `<iframe src="https://api.leadconnectorhq.com/widget/booking/BgXVap1OuMe72rGIR61b" style="width:100%;border:none;overflow:hidden;min-height:1675px" scrolling="no" id="BgXVap1OuMe72rGIR61b_quote" title="Request a quote"></iframe><script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>`;
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const areaBy = Object.fromEntries(L.areas.map((a) => [a.slug, a]));
 
@@ -303,9 +305,9 @@ ${cta(d, K.cta, "")}` });
   const C = W.contact, d = 1;
   page({ slug: C.slug, depth: d, title: C.title, desc: C.desc, body: `
 ${hero(d, { title: C.h1, text: C.text, photo: C.photo, buttons: false })}
-<section class="sec"><div class="wrap two">
-<div class="stack"><h2>GET A FREE QUOTE</h2><p>Send us the address, photos of the sign and what you need. We reply the same day.</p><p>Email: <b style="user-select:all">${S.email}</b><br>Phone: <b style="user-select:all">${S.phone}</b></p><p>Orlando, FL · Serving Central Florida</p></div>
-<div class="panel" id="quote-form">${MODE === "preview" ? `<h3>Quote form</h3><p>Aquí va el formulario de Lead Connector (GoHighLevel). Se conecta antes de publicar, para que cada cotización llegue directo a tu CRM.</p>` : `<!-- LEAD_CONNECTOR_FORM -->`}</div>
+<section class="sec"><div class="wrap stack">
+<div class="stack center narrow" style="margin-inline:auto"><h2>GET A FREE QUOTE</h2><p>Send us the address, photos of the sign and what you need. We reply the same day.</p><p>Email: <b style="user-select:all">${S.email}</b> · Phone: <b style="user-select:all">${S.phone}</b></p></div>
+<div id="quote-form" style="max-width:900px;width:100%;margin-inline:auto">${LC_WIDGET}</div>
 </div></section>` });
 }
 
@@ -313,7 +315,7 @@ ${hero(d, { title: C.h1, text: C.text, photo: C.photo, buttons: false })}
   const d = 1;
   page({ slug: W.book.slug, depth: d, title: W.book.title, desc: W.book.desc, body: `
 ${hero(d, { title: "BOOK ONLINE", text: "Book a site survey or a sign service call.", photo: "c33736_9d6cab.jpg", buttons: false })}
-<section class="sec"><div class="wrap stack center narrow" style="margin-inline:auto">${MODE === "preview" ? `<div class="note">Aquí va el calendario de GoHighLevel que reemplaza el Book Online de Wix.</div>` : `<!-- LEAD_CONNECTOR_CALENDAR -->`}<p>Prefer to talk? Call <b style="user-select:all">${S.phone}</b> or email <b style="user-select:all">${S.email}</b>.</p></div></section>` });
+<section class="sec"><div class="wrap stack center narrow" style="margin-inline:auto"><div style="width:100%">${LC_WIDGET}</div><p>Prefer to talk? Call <b style="user-select:all">${S.phone}</b> or email <b style="user-select:all">${S.email}</b>.</p></div></section>` });
 }
 
 // Blog (mismas direcciones /blog y /post/...)

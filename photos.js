@@ -60,7 +60,7 @@ module.exports = function apply(W, L) {
     ["RECENT INTERIOR SIGN INSTALLATIONS", map["interior-sign-installation"][1]],
     ["RECENT SIGN REMOVAL PROJECTS", map["sign-removal-rebranding"][1]],
   ].map(([t, g]) => [t, g.map(j)]);
-  W.contact.photo = j("c837a6_ffd2db");
+  W.contact.photo = j("c33736_1c66e2"); // instalación en lift (antes: cabezal de máquina CNC)
 
   // SIGN REPAIR LOCAL: fotos de tu Wix según el tipo de reparación
   const R = {

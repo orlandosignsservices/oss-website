@@ -76,7 +76,7 @@ module.exports = {
       ["CHANNEL LETTER INSTALLATION", "channel-letter-installation", "We install all channel letter configurations — raceway-mounted, flush-mounted, and halo-lit reverse channel designs. Our team handles electrical connections, wall penetrations, and municipality compliance for storefront and retail applications. Available for both new installations and sign replacements."],
       ["PYLON SIGN INSTALLATION", "pylon-sign-installation", "Professional installation for single-tenant and multi-tenant pylon signs. We manage footing assessment, structural mount, panel installation, and electrical connection. Experienced crews and the right equipment for high-clearance and roadside pylon projects across retail plazas, gas stations, and commercial developments."],
       ["MONUMENT SIGN INSTALLATION", "monument-sign-installation", "Precise ground-level installation for brick, aluminum, and cabinet-face monument signs at plaza entrances, office parks, and commercial properties. We coordinate with site contractors on footing and foundation where required."],
-      ["CABINET SIGN INSTALLATION", "cabinet-sign-installation", "Secure wall mounting, electrical connection, and code compliance for illuminated single-face and double-face cabinet signs. We work with sign company-supplied cabinets or coordinate with local fabricators to provide a complete install package."],
+      ["CABINET SIGN INSTALLATION", "cabinet-sign-installation", "Secure wall mounting, electrical connection, and code compliance for illuminated single-face and double-face cabinet signs. We install cabinets supplied by sign companies and fabricators, ready for permit, mounting and electrical."],
       ["INTERIOR SIGN INSTALLATION", "interior-sign-installation", "Professional installation for lobby logos, dimensional letters, ADA-compliant signage, wayfinding systems, and commercial interior branding. We work from shop drawings and coordinate with general contractors on phased interior build-outs."],
       ["SIGN REMOVAL & REBRANDING", "sign-removal-rebranding", "Clean, efficient removal of existing signage during tenant changes, franchise rebrands, or building renovations. We patch mounting surfaces, cap electrical, and dispose of or stage removed materials as required. Available as a standalone service or bundled with new installation."],
     ],
@@ -212,7 +212,7 @@ module.exports = {
     serviceTitle: "SIGN SERVICE & MAINTENANCE IN ORLANDO & CENTRAL FLORIDA",
     serviceText: "Florida sun, rain and storms wear signs down fast. We keep your business sign bright, safe and looking new, with one-time repairs or scheduled maintenance for all your locations. Every sign is different, so we quote each one after a quick look.",
     listTitle: "OUR SIGN SERVICES",
-    list: ["Service calls & repair: channel letters, cabinets, pylon & pole signs, storm damage", "Lighting & LED service: LED repair, power supply replacement, neon-to-LED conversion", "Sign face restoration & cleaning: letters, faces and cabinets", "Structural repainting: pylon, pole, monument and cabinet signs, pole rust treatment", "Refurbish & rebuild: sign face replacement, cabinet repair, complete rebuilds", "Sign design & rebranding: new faces and updated branding for an existing sign"],
+    list: ["Service calls & repair: channel letters, cabinets, pylon & pole signs, storm damage", "Lighting & LED service: LED repair, power supply replacement, neon-to-LED conversion", "Sign face restoration & cleaning: letters, faces and cabinets", "Structural repainting: pylon, pole, monument and cabinet signs, pole rust treatment", "Refurbish & rebuild: sign face replacement, cabinet repair, complete rebuilds", "Rebranding: new faces installed on an existing sign"],
     packageTitle: "SIGN REFRESH PACKAGE",
     packageIntro: "Bring your sign back to life in one visit:",
     package: ["Sign face & channel letter cleaning", "LED upgrades & neon-to-LED conversion", "Lighting & power supply repair", "Cabinet, pylon & monument repainting"],
@@ -245,7 +245,7 @@ module.exports = {
     title: "Contact Orlando Signs Services | Expert Sign Solutions in Orlando, FL",
     desc: "Orlando Signs Services is a commercial sign installation company in Orlando, FL, serving sign companies, contractors and businesses across Central Florida.",
     h1: "CONTACT US",
-    text: "Your brand's success is our passion. Contact Orlando Signs Services today and let us turn your vision into reality with our expert sign solutions. Elevate your business and leave a lasting impression on your audience with captivating signage.",
+    text: "Send us the address, photos or drawings of the sign and what you need. Our crews install and service signs for sign companies, contractors and businesses across Orlando and Central Florida.",
   },
 
   book: {

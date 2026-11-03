@@ -27,7 +27,7 @@ jobs:
       - run: node build.js
         env:
           CUSTOM_DOMAIN: ${{ vars.CUSTOM_DOMAIN }}
-          BASE_PATH: ${{ vars.CUSTOM_DOMAIN == 'true' && '' || '/oss-website' }}
+          BASE_PATH: ${{ vars.CUSTOM_DOMAIN != 'true' && '/oss-website' || '' }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

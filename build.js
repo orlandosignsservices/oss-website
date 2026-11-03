@@ -245,6 +245,7 @@ ${header(depth)}
 <main>${body}</main>
 ${footer(depth)}
 <script src="https://beta.leadconnectorhq.com/loader.js" data-resources-url="https://beta.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="683d338bb8f8b548bfea13d2"></script>
+<script>(function(){var n=0,t=setInterval(function(){var w=document.querySelector("chat-widget");if(w&&w.shadowRoot&&w.shadowRoot.querySelector("#lc_text-widget--btn")){var s=document.createElement("style");s.textContent="@media (max-width:900px){#lc_text-widget,#lc_text-widget--btn{right:auto!important;left:16px!important}}";w.shadowRoot.appendChild(s);clearInterval(t)}if(++n>60)clearInterval(t)},500)})();</script>
 </body></html>`;
   const dir = slug ? path.join(OUT, slug) : OUT;
   fs.mkdirSync(dir, { recursive: true });

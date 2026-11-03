@@ -250,13 +250,13 @@ module.exports = {
 
   book: {
     slug: "book-online",
-    title: "Book Online | Orlando Sign Service",
+    title: "Book Online | Orlando Signs Services",
     desc: "Book a site survey or service call with Orlando Signs Services.",
   },
 
   blog: {
     slug: "blog",
-    title: "Blog | Orlando Sign Service",
+    title: "Blog | Orlando Signs Services",
     posts: [
       {
         slug: "channel-letters-vs-cabinet-signs-what-installers-need-to-know",

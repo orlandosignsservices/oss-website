@@ -198,7 +198,7 @@ function footer(d) {
   const L1 = (s) => link(d, s);
   return `<footer><div class="wrap">
 <div class="cols">
-<div><h4>Orlando Signs Services</h4><p>Orlando, FL · Serving Central Florida</p><p style="margin-top:8px"><span style="user-select:all">${S.email}</span><br><span style="user-select:all">${S.phone}</span></p><a href="${S.instagram}" style="margin-top:8px">Follow us on Instagram</a></div>
+<div><h4>Orlando Signs Services</h4><p>Orlando, FL · Serving Central Florida</p><p style="margin-top:8px"><a href="mailto:${S.email}" style="display:inline">${S.email}</a><br><a href="tel:${S.phone.replace(/\D/g, "")}" style="display:inline">${S.phone}</a></p><a href="${S.instagram}" style="margin-top:8px">Follow us on Instagram</a></div>
 <div><h4>Installation</h4>${servicesMenu.map(([n, s]) => `<a href="${L1(s)}">${esc(n)}</a>`).join("")}<a href="${L1(W.partner.slug)}">For Sign Companies</a></div>
 <div><h4>Sign Repair</h4><a href="${L1(W.repair.slug)}">Sign Repair & Maintenance</a>${L.repairs.map((r) => `<a href="${L1(r.slug)}">${esc(r.name)}</a>`).join("")}</div>
 <div><h4>Repair by Area</h4>${L.areas.map((a) => `<a href="${L1("sign-repair-" + a.slug)}">${esc(a.name)}</a>`).join("")}<a href="${L1("sign-repair-areas")}"><b>All areas</b></a></div>
@@ -244,6 +244,7 @@ ${MODE === "preview" ? `<div class="preview-flag">Vista previa privada · todav�
 ${header(depth)}
 <main>${body}</main>
 ${footer(depth)}
+<script src="https://beta.leadconnectorhq.com/loader.js" data-resources-url="https://beta.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="683d338bb8f8b548bfea13d2"></script>
 </body></html>`;
   const dir = slug ? path.join(OUT, slug) : OUT;
   fs.mkdirSync(dir, { recursive: true });
@@ -427,6 +428,19 @@ ${hero(d, { title: `${r.name} IN ${a.name}`, text: r.intro, photo: r.photos[0], 
 ${newSigns(d, a.name)}
 ${cta(d, `NEED ${r.name.toUpperCase()} IN ${a.name}?`, "Send photos of your sign and the address. We reply the same day.")}` });
 }));
+
+// ---------- 404 (página de error con menú, teléfono y formulario) ----------
+{
+  page({ slug: "__404", depth: 0, title: "Page not found | Orlando Signs Services", desc: "This page was not found. Call Orlando Signs Services or send us your project.", body: `
+<section class="sec"><div class="wrap stack center"><h1>PAGE NOT FOUND</h1><p>The page you are looking for moved or no longer exists.</p><p>Call us at <a href="tel:${S.phone.replace(/\D/g, "")}">${S.phone}</a> or send us your project and we reply the same day.</p><div class="btns"><a class="btn" href="${link(0, "contact")}">CONTACT US</a> <a class="btn" href="${link(0, "")}">GO TO HOME</a></div></div></section>` });
+  pages.pop();
+  const f = path.join(OUT, "__404", "index.html");
+  const base = (process.env.BASE_PATH || "") + "/";
+  let h = fs.readFileSync(f, "utf8").replace("<head>", `<head>\n<base href="${base}">`);
+  if (!/name="robots"/.test(h)) h = h.replace("</title>", `</title>\n<meta name="robots" content="noindex">`);
+  fs.writeFileSync(path.join(OUT, "404.html"), h);
+  fs.rmSync(path.join(OUT, "__404"), { recursive: true });
+}
 
 // ---------- sitemap, robots, 404 ----------
 const today = new Date().toISOString().slice(0, 10);

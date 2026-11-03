@@ -86,6 +86,12 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 
 /* hero */
 .hero{position:relative;color:#fff;background:#222 center/cover no-repeat}
+.mission{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);background:#0b0d10;color:#fff}
+.mission-text{display:grid;align-content:center;gap:18px;padding:clamp(48px,6vw,90px) clamp(24px,5vw,72px)}
+.mission-text h2{color:#fff}
+.mission-text p{color:var(--on-dark);font-size:17px;max-width:560px}
+.mission-photo{min-height:clamp(320px,36vw,520px);background:#111 center/cover no-repeat}
+@media(max-width:820px){.mission{grid-template-columns:1fr}.mission-photo{order:-1;min-height:260px}}
 .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.62))}
 .hero .wrap{position:relative;padding-block:clamp(90px,14vw,170px) clamp(60px,8vw,90px);text-align:center;display:grid;gap:18px;justify-items:center}
 .hero p{max-width:780px;font-size:17px;color:var(--on-dark)}
@@ -263,7 +269,7 @@ ${cta(d, H.ctaTitle, H.ctaText)}` });
   page({ slug: A.slug, depth: d, title: A.title, desc: A.desc, body: `
 ${hero(d, { title: A.whoTitle, text: "", photo: A.whoPhoto, buttons: false })}
 <section class="sec"><div class="wrap two"><p>${esc(A.who)}</p><img src="${img(d, A.whoPhoto)}" alt="Restaurant storefront channel letter sign installed in Central Florida" style="border-radius:12px;width:100%;aspect-ratio:4/3;object-fit:cover"></div></section>
-<section class="hero" style="background-image:url('${img(d, A.heroPhoto)}')"><div class="wrap stack center narrow" style="margin-inline:auto"><h2 style="color:#fff">${esc(A.missionTitle)}</h2>${A.mission.map((m) => `<p>${esc(m)}</p>`).join("")}</div></section>
+<section class="mission"><div class="mission-text"><h2>${esc(A.missionTitle)}</h2>${A.mission.map((m) => `<p>${esc(m)}</p>`).join("")}</div><div class="mission-photo" style="background-image:url('${img(d, A.heroPhoto)}')" role="img" aria-label="Three digital display screens at night with the city skyline behind"></div></section>
 <section class="sec"><div class="wrap stack"><h2 style="text-align:center">${esc(A.valuesTitle)}</h2><div class="why">${A.values.map(([t, x]) => `<div class="panel"><h3>${esc(t)}</h3><p>${esc(x)}</p></div>`).join("")}</div></div></section>
 ${cta(d, "READY TO WORK WITH US?", "")}` });
 }

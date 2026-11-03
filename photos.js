@@ -24,7 +24,7 @@ module.exports = function apply(W, L) {
   ].map(([f, a]) => [j(f), a]);
 
   // ABOUT
-  W.about.heroPhoto = j("c33736_1c66e2"); // Our Mission (trabajador en lift)
+  W.about.heroPhoto = "adobe_674401807.jpg"; // Our Mission: pantallas de Adobe Stock (sin personas)
   W.about.whoPhoto = j("c33736_0a41f7"); // Mikado Sushi
 
   // SERVICES (círculos de cada servicio)

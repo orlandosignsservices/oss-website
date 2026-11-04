@@ -159,7 +159,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .sec.dark .chip{background:transparent;color:#ffb48f}
 .sec.dark .chip:hover{color:#fff}
 
-.note{border-left:4px solid var(--orange);background:#fff;padding:18px 20px;border-radius:0 10px 10px 0}
+.note{border-left:4px solid var(--orange);background:#fff;padding:26px 28px;border-radius:0 10px 10px 0}
+.note h3{font-size:22px}
+.note p{font-size:19px;line-height:1.7}
 .post p+p{margin-top:0}
 .post .stack{gap:14px}
 .post h2{font-size:22px;color:var(--ink);text-transform:none;letter-spacing:0}

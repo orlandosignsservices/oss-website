@@ -121,6 +121,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .two>*{min-width:0}
 .ticks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
 .ticks li{position:relative;padding-left:28px}
+.ticks strong{color:var(--ink);font-weight:700}
+.ticks li:has(strong){color:var(--muted)}
 .ticks li::before{content:"";position:absolute;left:0;top:.55em;width:12px;height:12px;border-radius:50%;background:var(--orange)}
 .panel{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:28px;display:grid;gap:14px}
 .sec.mist .panel{background:#fff}
@@ -241,7 +243,7 @@ function hero(d, { title, text, photo, crumb, buttons = true, h = "h1", split = 
 }
 
 const gallery = (d, list) => `<div class="gallery">${list.map((f) => { const [src, alt] = Array.isArray(f) ? f : [f, "Commercial sign installation by Orlando Signs Services in Central Florida"]; return `<div class="gph"><img class="bgfill" src="${img(d, src)}" alt="" aria-hidden="true" loading="lazy"><img src="${img(d, src)}" alt="${esc(alt)}" loading="lazy"></div>`; }).join("")}</div>`;
-const ticks = (list) => `<ul class="ticks">${list.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>`;
+const ticks = (list) => `<ul class="ticks">${list.map((x) => { const i = x.indexOf(": "); return i > 0 && i < 45 ? `<li><strong>${esc(x.slice(0, i))}:</strong> ${esc(x.slice(i + 2))}</li>` : `<li>${esc(x)}</li>`; }).join("")}</ul>`; // etiqueta antes de ":" en negrita
 
 function schema(extra) {
   const base = { "@context": "https://schema.org", "@type": "LocalBusiness", name: S.name, url: S.domain + "/", telephone: "+1-" + S.phone, email: S.email, image: S.domain + "/assets/img/logo.png", address: { "@type": "PostalAddress", addressLocality: "Orlando", addressRegion: "FL", addressCountry: "US" }, areaServed: L.areas.map((a) => a.name).concat(["Central Florida"]) };

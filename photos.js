@@ -49,7 +49,7 @@ module.exports = function apply(W, L) {
   });
   W.partner.mainPhoto = j("c33736_1f9cce"); // Saku de noche
   W.partner.photos = channelGallery.map(j);
-  W.repair.mainPhoto = j("06307d_715008");
+  W.repair.mainPhoto = "sanford-relax-or-knot-chair-massage.jpg"; // Relax or Knot de noche (Os, 4 nov 2026)
   W.repair.photos = channelGallery.map(j);
 
   W.work.groups = [

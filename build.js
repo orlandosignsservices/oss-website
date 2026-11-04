@@ -120,7 +120,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:32px;align-items:start}
 .two>*{min-width:0}
 .ticks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-.ticks li{position:relative;padding-left:28px}
+.ticks li{position:relative;padding-left:30px;font-size:18px;line-height:1.6}
+.panel h3{font-size:20px}
+.sec .stack > p{font-size:18px;line-height:1.7}
 .ticks strong{color:var(--ink);font-weight:700}
 .ticks li:has(strong){color:var(--muted)}
 .ticks li::before{content:"";position:absolute;left:0;top:.55em;width:12px;height:12px;border-radius:50%;background:var(--orange)}

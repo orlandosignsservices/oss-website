@@ -34,7 +34,7 @@ module.exports = {
     },
     {
       slug: "sign-lighting-power-repair",
-      name: "Sign Lighting & Power Repair",
+      name: "Sign Lighting & Power Supply Repair",
       short: "Power supplies, transformers, ballasts, timers and photocells.",
       intro: "If your sign won't turn on at night or stays lit all day, the problem is usually the power supply, a transformer, a ballast, the timer or the photocell. We troubleshoot the whole circuit and replace the failed part so your sign runs on its own schedule again.",
       signs: ["Sign won't turn on", "Sign stays on during the day", "It turns off after a few minutes", "Buzzing or a burning smell", "Breaker trips when the sign comes on"],

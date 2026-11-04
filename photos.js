@@ -40,7 +40,7 @@ module.exports = function apply(W, L) {
     "monument-sign-installation": ["06307d_12a5ec", ["06307d_bde9d7", "06307d_ce3ac0", "06307d_112cc8", "06307d_6e93ce", "06307d_45de19"]],
     "cabinet-sign-installation": ["c33736_7178b6", ["06307d_4701c6", "06307d_b689bb", "06307d_be1330", "06307d_902c4a", "06307d_1417bd"]],
     "interior-sign-installation": ["c33736_970f76", ["06307d_56774e", "06307d_ae3193", "06307d_ec99cc", "06307d_9784a1", "06307d_3b30ba", "c33736_354056"]],
-    "sign-removal-rebranding": ["c33736_25e10f", ["c33736_fc722b", "c33736_ac6f05", "c33736_de62ad", "c33736_c8c0fe", "c33736_8f2fec", "c33736_43cd17"]],
+    "sign-removal-rebranding": ["c33736_25e10f", ["c33736_ac6f05", "c33736_de62ad", "c33736_c8c0fe", "c33736_8f2fec", "c33736_43cd17"]],
   };
   W.installs.forEach((P) => {
     const [main, gal] = map[P.slug];
@@ -65,7 +65,7 @@ module.exports = function apply(W, L) {
   // SIGN REPAIR LOCAL: fotos de tu Wix según el tipo de reparación
   const R = {
     "led-sign-repair": ["06307d_715008", "c33736_1f9cce", "c33736_431ed6"],
-    "sign-face-replacement": ["c33736_fc722b", "c33736_cb2a53", "c33736_ac6f05"],
+    "sign-face-replacement": ["c33736_cb2a53", "c33736_7178b6", "c33736_ac6f05"], // fc722b quitada: era window vinyl, no face (Os 4 nov),
     "channel-letter-repair": ["06307d_559a98", "06307d_eea0e4", "06307d_38874a"],
     "sign-lighting-power-repair": ["c33736_1f9cce", "c33736_7178b6", "c33736_5cc3a1"],
     "neon-to-led-conversion": ["c33736_c8fd0f", "c33736_fcd189", "c33736_0ecda4"],

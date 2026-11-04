@@ -228,14 +228,14 @@ function cta(d, title, text) {
   return `<section class="cta"><div class="wrap"><h2>${esc(title)}</h2>${text ? `<p>${esc(text)}</p>` : ""}<div class="btns"><a class="btn btn-black" href="${link(d, "contact")}">Request a Free Quote</a><a class="btn btn-line" href="${S.phoneHref}">Call ${S.phone}</a></div><p class="meta">Email <b>${S.email}</b> · Phone <b>${S.phone}</b></p></div></section>`;
 }
 
-const tilePos = { "c33736_fc722b.jpg": "center 38%", "c33736_8f2fec.jpg": "center 38%", "06307d_559a98.jpg": "center top" }; // tarjetas: dónde enfocar cada foto
+const tilePos = { "c33736_8f2fec.jpg": "center 38%", "06307d_559a98.jpg": "center top" }; // tarjetas: dónde enfocar cada foto
 const tileZoom = { "c33736_ca2798.jpg": "scale(1.45);transform-origin:center 20%", "c33736_d18eaa.jpg": "scale(1.4);transform-origin:center 30%", "c33736_819ac0.jpg": "scale(1.9);transform-origin:center 32%" }; // Os 4 nov: como estaban pero un poco más alejadas
 const tz = (f) => (tileZoom[f] ? ` style="transform:${tileZoom[f]}"` : "");
 const tp = (f) => (tilePos[f] ? ` style="object-position:${tilePos[f]}"` : "");
 function hero(d, { title, text, photo, crumb, buttons = true, h = "h1", split = true }) {
   // Todas las portadas: texto a un lado y foto completa al otro (3 nov 2026, Os: ningún texto encima de un letrero)
   const posMap = { "06307d_559a98.jpg": "center top", "c33736_1920f0.jpg": "center top", "c33736_c8fd0f.jpg": "center 15%", "06307d_715008.jpg": "center 34%", "c33736_0ecda4.jpg": "center 12%", "c33736_9d6cab.jpg": "80% 30%", "c33736_7a62af.jpg": "center 35%", "international-drive-cafe-tu-tu-tango.jpg": "left center", "dr-phillips-bay-hill-jewelers.jpg": "center 22%", "millenia-mattress-mars.jpg": "center 30%", "sanford-relax-or-knot-chair-massage.jpg": "38% center" };
-  const fitMap = { "waterford-lakes-peoples-tax.jpg": true, "c33736_fc722b.jpg": true, "c33736_8f2fec.jpg": true }; // fotos pequeñas o collages antes/después: se muestran completas // foto ancha y pequeña: se muestra completa sin agrandar
+  const fitMap = { "waterford-lakes-peoples-tax.jpg": true, "c33736_8f2fec.jpg": true }; // fotos pequeñas o collages antes/después: se muestran completas // foto ancha y pequeña: se muestra completa sin agrandar
   if (split) {
     // Zonas: texto a la izquierda en fondo oscuro, foto completa a la derecha (el texto nunca tapa el letrero)
     return `<section class="hero-split"><div class="hs-text">${crumb ? `<div class="crumb">${crumb}</div>` : ""}<${h}>${esc(title)}</${h}>${text ? `<p>${esc(text)}</p>` : ""}${buttons ? `<div class="btns"><a class="btn btn-orange" href="${link(d, "contact")}">Request a Free Quote</a></div>` : ""}</div><div class="hs-photo" style="background-image:url('${img(d, photo)}')${posMap[photo] ? ";background-position:" + posMap[photo] : ""}${fitMap[photo] ? ";background-size:contain;background-color:#0b0d10" : ""}" role="img" aria-label="Sign installed by Orlando Signs Services"></div></section>`;

@@ -284,7 +284,6 @@ ${hero(d, { title: H.heroTitle, text: H.heroText, photo: H.heroPhoto })}
 <section class="sec"><div class="wrap stack"><h2 style="text-align:center">${esc(H.whyTitle)}</h2><div class="why">${H.why.map(([t, x]) => `<div class="panel"><h3>${esc(t)}</h3><p>${esc(x)}</p></div>`).join("")}</div></div></section>
 <section class="sec dark"><div class="wrap stack"><h2 style="text-align:center">SIGN REPAIR NEAR YOU</h2><p style="text-align:center;max-width:760px;margin-inline:auto">Lights out, a broken face or a dark letter? Find sign repair in your part of Central Florida.</p><div class="chips" style="justify-content:center">${L.areas.map((a) => `<a class="chip" href="${link(d, "sign-repair-" + a.slug)}">${esc(a.name)}</a>`).join("")}</div></div></section>
 <section class="sec"><div class="wrap stack"><h2 style="text-align:center">${esc(H.recentTitle)}</h2>${gallery(d, H.gallery)}<p style="text-align:center">${esc(H.recentText)}</p></div></section>
-<section class="sec mist"><div class="wrap stack center"><h2>${esc(H.reviewTitle)}</h2><p class="quote">“${esc(H.review)}”</p></div></section>
 ${cta(d, H.ctaTitle, H.ctaText)}` });
 }
 

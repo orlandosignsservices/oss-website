@@ -68,7 +68,7 @@ module.exports = function apply(W, L) {
     "sign-face-replacement": ["c33736_de62ad", "c33736_cb2a53", "c33736_7178b6"], // fc722b quitada: era window vinyl, no face (Os 4 nov),
     "channel-letter-repair": ["06307d_559a98", "06307d_eea0e4", "06307d_38874a"],
     "sign-lighting-power-repair": ["c33736_1f9cce", "c33736_7178b6", "c33736_5cc3a1"],
-    "neon-to-led-conversion": ["c33736_c8fd0f", "c33736_fcd189", "c33736_0ecda4"],
+    "neon-to-led-conversion": ["bay-hill-jewelers-before-after", "c33736_c8fd0f", "c33736_fcd189"],
     "sign-cleaning": ["c33736_7a62af", "c33736_cb2a53", "c33736_ca2798"],
     "sign-maintenance": ["c33736_431ed6", "c33736_7a62af", "c33736_0a41f7"],
     "pylon-pole-sign-repair": ["c33736_25e10f", "c33736_a16424", "c33736_d18eaa"],

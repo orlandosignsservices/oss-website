@@ -389,7 +389,7 @@ ${hero(d, { title: R.h1, text: R.lead, photo: R.mainPhoto })}
 </div></section>
 <section class="sec dark"><div class="wrap stack"><h2>WHAT DOES YOUR SIGN NEED?</h2><div class="tiles">${L.repairs.map((r) => `<a class="tile" href="${link(d, r.slug)}"><img class="bgfill" src="${img(d, r.photos[0])}" alt="" aria-hidden="true" loading="lazy"><img src="${img(d, r.photos[0])}" alt="${esc(r.name)}" loading="lazy"><span>${esc(r.name)}</span></a>`).join("")}</div></div></section>
 <section class="sec mist"><div class="wrap two"><div class="stack"><h2>${esc(R.packageTitle)}</h2><p>${esc(R.packageIntro)}</p>${ticks(R.package)}<p>${esc(R.packageOutro)}</p></div><div>${gallery(d, [L.repairs[0].photos[1], L.repairs[1].photos[0]])}</div></div></section>
-<section class="sec"><div class="wrap stack"><h2>SIGN REPAIR BY AREA</h2>${areaList(d)}</div></section>
+<section class="sec"><div class="wrap stack"><h2>SIGN REPAIR BY AREA</h2><p>Pick your area to see what we fix there.</p><div class="chips">${L.areas.map((a) => `<a class="chip" href="${link(d, "sign-repair-" + a.slug)}">${esc(a.name)}</a>`).join("")}</div></div></section>
 <section class="sec mist"><div class="wrap stack"><h2 style="text-align:center">${esc(R.recentTitle)}</h2>${gallery(d, R.photos)}<p style="text-align:center">${esc(R.areas)}</p></div></section>
 ${newSigns(d)}
 ${cta(d, R.cta, "")}` });

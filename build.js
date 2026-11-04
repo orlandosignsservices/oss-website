@@ -51,6 +51,8 @@ p{margin:0}
 .btn-black{background:var(--black);color:#fff}
 .btn-black:hover{background:#2a2a2a}
 .btn-orange{background:var(--orange);color:#fff}
+.btn-line-dark{border:2px solid var(--black);color:var(--black);background:transparent}
+.btn-line-dark:hover{background:var(--black);color:#fff}
 .btn-orange:hover{background:var(--orange-dark)}
 .btn-line{border:2px solid #fff;color:#fff;padding:12px 26px}
 a:focus-visible,.btn:focus-visible,summary:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
@@ -284,6 +286,7 @@ ${hero(d, { title: H.heroTitle, text: H.heroText, photo: H.heroPhoto })}
 <section class="sec"><div class="wrap stack"><h2 style="text-align:center">${esc(H.whyTitle)}</h2><div class="why">${H.why.map(([t, x]) => `<div class="panel"><h3>${esc(t)}</h3><p>${esc(x)}</p></div>`).join("")}</div></div></section>
 <section class="sec dark"><div class="wrap stack"><h2 style="text-align:center">SIGN REPAIR NEAR YOU</h2><p style="text-align:center;max-width:760px;margin-inline:auto">Lights out, a broken face or a dark letter? Find sign repair in your part of Central Florida.</p><div class="chips" style="justify-content:center">${L.areas.map((a) => `<a class="chip" href="${link(d, "sign-repair-" + a.slug)}">${esc(a.name)}</a>`).join("")}</div></div></section>
 <section class="sec"><div class="wrap stack"><h2 style="text-align:center">${esc(H.recentTitle)}</h2>${gallery(d, H.gallery)}<p style="text-align:center">${esc(H.recentText)}</p></div></section>
+<section class="sec mist"><div class="wrap stack center"><h2>SEE WHAT OUR CLIENTS SAY ON GOOGLE</h2><p>Read real reviews from our clients on our Google Business Profile.</p><div class="btns" style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center"><a class="btn btn-black" href="https://www.google.com/maps/place/?q=place_id:ChIJfYQhWD52Lk0RMZFaQ1kIQCE" target="_blank" rel="noopener">Read Our Google Reviews</a><a class="btn btn-line-dark" href="https://g.page/r/CTGRWkNZCEAhEBM/review" target="_blank" rel="noopener">Leave a Review</a></div></div></section>
 ${cta(d, H.ctaTitle, H.ctaText)}` });
 }
 

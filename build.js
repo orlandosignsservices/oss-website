@@ -390,7 +390,7 @@ ${cta(d, R.cta, "")}` });
 // Nota para clientes locales: también hacemos letreros nuevos (sin enlazar a la sección de compañías)
 function newSigns(d, place) {
   const where = place ? ` in ${esc(place)}` : "";
-  return `<section class="sec mist"><div class="wrap two"><div class="stack"><h2>NEED A NEW SIGN INSTALLED${place ? " IN " + esc(place) : ""}?</h2><p>Besides repairs and maintenance, we also install new signs for local businesses${where} and handle the permits: channel letters, lightboxes, cabinet signs, monument and pylon signs.</p></div><div class="panel"><h3>Installation services</h3><ul class="ticks"><li>Sign installation and electrical connection</li><li>Permits and landlord paperwork</li><li>Removal of the old sign</li></ul><a class="btn btn-orange" href="${link(d, "contact")}" style="justify-self:start">Ask About Installation</a></div></div></section>`;
+  return `<section class="sec mist"><div class="wrap two"><div class="stack"><h2>NEED A NEW SIGN INSTALLED${place ? " IN " + esc(place) : ""}?</h2><p>Besides repairs and maintenance, we also install new signs for local businesses${where}: channel letters, lightboxes, cabinet signs, monument and pylon signs.</p></div><div class="panel"><h3>Installation services</h3><ul class="ticks"><li>Sign installation and electrical connection</li><li>Site survey before every job</li><li>Removal of the old sign</li></ul><a class="btn btn-orange" href="${link(d, "contact")}" style="justify-self:start">Ask About Installation</a></div></div></section>`;
 }
 function areaList(d, only) {
   return `<div class="arealist">${(only || L.areas).map((a) => `<div class="arow"><div><h3><a href="${link(d, "sign-repair-" + a.slug)}">${esc(a.name)}</a></h3><div class="county">${esc(a.county)}</div></div><div class="chips">${L.repairs.map((r) => `<a class="chip" href="${link(d, r.slug + "-" + a.slug)}">${esc(r.name)}</a>`).join("")}</div></div>`).join("")}</div>`;
@@ -398,7 +398,7 @@ function areaList(d, only) {
 
 // Página "Areas" (la lista estilo GLPX)
 page({ slug: "sign-repair-areas", depth: 1, title: "Sign Repair Areas in Orlando & Central Florida | Orlando Signs Services", desc: "Find business sign repair near you: LED repair, sign face replacement, channel letter repair, lighting, cleaning and maintenance in Downtown Orlando, I-Drive, Dr. Phillips, Lake Nona, Winter Park, Kissimmee and more.", body: `
-${hero(1, { title: "SIGN REPAIR AREAS WE SERVE", text: "Pick your area and the repair you need. Every page tells you what we fix there and who handles sign permits for that address.", photo: "06307d_715008.jpg", crumb: `<a href="${link(1, W.repair.slug)}">Sign Repair</a>` })}
+${hero(1, { title: "SIGN REPAIR AREAS WE SERVE", text: "Pick your area and the repair you need. Every page shows what we fix there and how we bring signs back to life.", photo: "06307d_715008.jpg", crumb: `<a href="${link(1, W.repair.slug)}">Sign Repair</a>` })}
 <section class="sec"><div class="wrap">${areaList(1)}</div></section>
 <section class="sec mist"><div class="wrap stack center narrow" style="margin-inline:auto"><h2>DON'T SEE YOUR AREA?</h2><p>We repair signs across all of Central Florida, from Sanford to Clermont and Kissimmee. Call or send photos of your sign and the address.</p></div></section>
 ${newSigns(1)}
@@ -411,7 +411,7 @@ L.areas.forEach((a) => {
   page({ slug: "sign-repair-" + a.slug, depth: d, title: `Sign Repair in ${a.name}, FL | LED, Faces & Letters | Orlando Signs Services`, desc: `Business sign repair in ${a.name}: LED and lighting repair, sign face replacement, channel letter repair, neon to LED, cleaning and maintenance. Request a quote.`, extraSchema: { areaServed: a.name }, body: `
 ${hero(d, { title: `SIGN REPAIR IN ${a.name}`, text: a.about, photo: a.photo, split: true, crumb: `<a href="${link(d, "sign-repair-areas")}">Sign Repair Areas</a> · ${esc(a.county)}` })}
 <section class="sec"><div class="wrap stack"><h2>WHAT DOES YOUR SIGN NEED IN ${esc(a.name)}?</h2><div class="two">${L.repairs.map((r) => `<div class="panel"><h3><a href="${link(d, r.slug + "-" + a.slug)}" style="color:var(--ink);text-decoration:none">${esc(r.name)}</a></h3><p>${esc(r.short)}</p><a href="${link(d, r.slug + "-" + a.slug)}">${esc(r.name)} in ${esc(a.name)}</a></div>`).join("")}</div></div></section>
-<section class="sec mist"><div class="wrap two"><div class="stack"><h2>SIGNS WE SERVICE HERE</h2><p>Common business signs in ${esc(a.name)} include ${esc(a.typical)}. Every sign is different, so we quote each one after a quick look.</p></div><div class="note"><h3 style="margin-bottom:8px">Permits in ${esc(a.name)}</h3><p>Sign permits for most addresses here go through ${esc(a.permit)}. If your repair needs a permit, we are able to handle it for you.</p></div></div></section>
+<section class="sec mist"><div class="wrap two"><div class="stack"><h2>SIGNS WE SERVICE HERE</h2><p>Common business signs in ${esc(a.name)} include ${esc(a.typical)}. Every sign is different, so we quote each one after a quick look.</p></div><div class="note"><h3 style="margin-bottom:8px">${esc(a.name)}</h3><p>We bring tired signs back to life: new faces, brighter LEDs, upgraded electrical, cleaning and fresh paint, so your business looks its best day and night.</p></div></div></section>
 <section class="sec"><div class="wrap stack"><h2>NEARBY AREAS</h2>${areaList(d, near)}</div></section>
 ${newSigns(d, a.name)}
 ${cta(d, `NEED A SIGN REPAIRED IN ${a.name}?`, "Send photos of your sign and the address. We reply the same day.")}` });
@@ -423,7 +423,7 @@ L.repairs.forEach((r) => {
   page({ slug: r.slug, depth: d, title: `${r.name} Orlando & Central Florida | Orlando Signs Services`, desc: `${r.name} for businesses in Orlando and Central Florida. ${r.short} Request a quote.`, body: `
 ${hero(d, { title: `${r.name.toUpperCase()} IN ORLANDO & CENTRAL FLORIDA`, text: r.intro, photo: r.photos[0], crumb: `<a href="${link(d, W.repair.slug)}">Sign Repair</a>` })}
 <section class="sec"><div class="wrap two"><div class="panel"><h3>Signs it needs attention</h3>${ticks(r.signs)}</div><div class="panel"><h3>What we do</h3>${ticks(r.fix)}</div></div></section>
-<section class="sec mist"><div class="wrap stack"><h2>${esc(r.name)} BY AREA</h2><div class="chips">${L.areas.map((a) => `<a class="chip" href="${link(d, r.slug + "-" + a.slug)}">${esc(a.name)}</a>`).join("")}</div><div class="note"><p>${esc(r.permit)}</p></div></div></section>
+<section class="sec mist"><div class="wrap stack"><h2>${esc(r.name)} BY AREA</h2><div class="chips">${L.areas.map((a) => `<a class="chip" href="${link(d, r.slug + "-" + a.slug)}">${esc(a.name)}</a>`).join("")}</div><div class="note"><p>${esc(r.renew)}</p></div></div></section>
 <section class="sec"><div class="wrap stack"><h2>RECENT SIGN WORK</h2>${gallery(d, r.photos)}</div></section>
 ${newSigns(d)}
 ${cta(d, `NEED ${r.name.toUpperCase()}?`, "Send photos of your sign and the address. We reply the same day.")}` });
@@ -441,7 +441,7 @@ ${hero(d, { title: `${r.name} IN ${a.name}`, text: r.intro, photo: a.photo, spli
 </div></section>
 <section class="sec mist"><div class="wrap two">
 <div class="panel"><h3>What we do</h3>${ticks(r.fix)}</div>
-<div class="note"><h3 style="margin-bottom:8px">Permits in ${esc(a.name)}</h3><p>${esc(r.permit)} For most addresses in ${esc(a.name)}, permits go through ${esc(a.permit)}.</p></div>
+<div class="note"><h3 style="margin-bottom:8px">${esc(a.name)}</h3><p>${esc(r.renew)}</p></div>
 </div></section>
 <section class="sec"><div class="wrap stack"><h2>RECENT SIGN WORK IN CENTRAL FLORIDA</h2>${gallery(d, r.photos)}</div></section>
 <section class="sec dark"><div class="wrap stack"><h2>OTHER SIGN REPAIRS IN ${esc(a.name)}</h2><div class="chips">${others.map((x) => `<a class="chip" href="${link(d, x.slug + "-" + a.slug)}">${esc(x.name)}</a>`).join("")}</div>

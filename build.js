@@ -85,6 +85,14 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 }
 
 /* hero */
+.hero-split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);background:#0b0d10;color:#fff}
+.hs-text{display:grid;gap:18px;align-content:center;padding-block:clamp(48px,7vw,96px);padding-left:max(24px,calc((100vw - 1140px)/2));padding-right:clamp(24px,4vw,56px)}
+.hs-text h1{margin:0;font-size:clamp(28px,3.4vw,40px);line-height:1.15}
+.hs-text p{color:var(--on-dark);font-size:16px;margin:0}
+.hs-text .crumb{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:#ffd9c6}
+.hs-text .crumb a{color:#ffd9c6}
+.hs-photo{min-height:clamp(320px,34vw,500px);background:#111 center/cover no-repeat}
+@media (max-width:820px){.hero-split{grid-template-columns:1fr}.hs-photo{order:-1;min-height:240px}.hs-text{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}}
 .hero{position:relative;color:#fff;background:#222 center/cover no-repeat}
 .mission{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);background:#0b0d10;color:#fff}
 .mission-text{display:grid;align-content:center;gap:18px;padding:clamp(48px,6vw,90px) clamp(24px,5vw,72px)}
@@ -211,8 +219,15 @@ function cta(d, title, text) {
   return `<section class="cta"><div class="wrap"><h2>${esc(title)}</h2>${text ? `<p>${esc(text)}</p>` : ""}<div class="btns"><a class="btn btn-black" href="${link(d, "contact")}">Request a Free Quote</a><a class="btn btn-line" href="${S.phoneHref}">Call ${S.phone}</a></div><p class="meta">Email <b>${S.email}</b> · Phone <b>${S.phone}</b></p></div></section>`;
 }
 
-function hero(d, { title, text, photo, crumb, buttons = true, h = "h1" }) {
-  return `<section class="hero" style="background-image:url('${img(d, photo)}')"><div class="wrap">${crumb ? `<div class="crumb">${crumb}</div>` : ""}<${h}>${esc(title)}</${h}>${text ? `<p>${esc(text)}</p>` : ""}${buttons ? `<div class="btns"><a class="btn btn-black" href="${link(d, "contact")}">Request a Free Quote</a></div>` : ""}</div></section>`;
+function hero(d, { title, text, photo, crumb, buttons = true, h = "h1", split = false }) {
+  const posMap = { "06307d_715008.jpg": "center 34%", "c33736_0ecda4.jpg": "center 12%", "c33736_9d6cab.jpg": "80% 30%", "c33736_7a62af.jpg": "center 35%", "international-drive-cafe-tu-tu-tango.jpg": "left center", "dr-phillips-bay-hill-jewelers.jpg": "center 22%", "millenia-mattress-mars.jpg": "center 30%", "sanford-relax-or-knot-chair-massage.jpg": "38% center" };
+  const fitMap = { "waterford-lakes-peoples-tax.jpg": true }; // foto ancha y pequeña: se muestra completa sin agrandar
+  if (split) {
+    // Zonas: texto a la izquierda en fondo oscuro, foto completa a la derecha (el texto nunca tapa el letrero)
+    return `<section class="hero-split"><div class="hs-text">${crumb ? `<div class="crumb">${crumb}</div>` : ""}<${h}>${esc(title)}</${h}>${text ? `<p>${esc(text)}</p>` : ""}${buttons ? `<div class="btns"><a class="btn btn-orange" href="${link(d, "contact")}">Request a Free Quote</a></div>` : ""}</div><div class="hs-photo" style="background-image:url('${img(d, photo)}')${posMap[photo] ? ";background-position:" + posMap[photo] : ""}${fitMap[photo] ? ";background-size:contain;background-color:#0b0d10" : ""}" role="img" aria-label="Sign installed by Orlando Signs Services"></div></section>`;
+  }
+  const pos = { "06307d_715008.jpg": ";background-position:center 34%", "c33736_0ecda4.jpg": ";background-position:center 19%", "c33736_9d6cab.jpg": ";background-position:80% 30%", "c33736_7a62af.jpg": ";background-position:center 40%" }[photo] || "";
+  return `<section class="hero" style="background-image:url('${img(d, photo)}')${pos}"><div class="wrap">${crumb ? `<div class="crumb">${crumb}</div>` : ""}<${h}>${esc(title)}</${h}>${text ? `<p>${esc(text)}</p>` : ""}${buttons ? `<div class="btns"><a class="btn btn-black" href="${link(d, "contact")}">Request a Free Quote</a></div>` : ""}</div></section>`;
 }
 
 const gallery = (d, list) => `<div class="gallery">${list.map((f) => { const [src, alt] = Array.isArray(f) ? f : [f, "Commercial sign installation by Orlando Signs Services in Central Florida"]; return `<img src="${img(d, src)}" alt="${esc(alt)}" loading="lazy">`; }).join("")}</div>`;
@@ -223,16 +238,16 @@ function schema(extra) {
   return `<script type="application/ld+json">${JSON.stringify(Object.assign(base, extra || {}))}</script>`;
 }
 
-function page({ slug, depth, title, desc, body, extraSchema }) {
+function page({ slug, depth, title, desc, body, extraSchema, hold }) {
   const canonical = S.domain + "/" + (slug ? slug + "/" : "");
-  pages.push(slug);
+  if (!hold) pages.push(slug); // las páginas en espera no van al sitemap
   const html = `<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>${esc(title)}</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="${esc(desc)}">
-<link rel="canonical" href="${canonical}">${NOINDEX ? `\n<meta name="robots" content="noindex, nofollow">` : ""}
+<link rel="canonical" href="${canonical}">${NOINDEX ? `\n<meta name="robots" content="noindex, nofollow">` : hold ? `\n<meta name="robots" content="noindex, follow">` : ""}
 <meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:type" content="website"><meta property="og:url" content="${canonical}">
 <link rel="icon" href="${img(depth, "favicon.svg")}" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -389,9 +404,9 @@ L.areas.forEach((a) => {
   const d = 1;
   const near = a.nearby.map((s) => areaBy[s]);
   page({ slug: "sign-repair-" + a.slug, depth: d, title: `Sign Repair in ${a.name}, FL | LED, Faces & Letters | Orlando Signs Services`, desc: `Business sign repair in ${a.name}: LED and lighting repair, sign face replacement, channel letter repair, neon to LED, cleaning and maintenance. Request a quote.`, extraSchema: { areaServed: a.name }, body: `
-${hero(d, { title: `SIGN REPAIR IN ${a.name}`, text: a.about, photo: L.repairs[0].photos[0], crumb: `<a href="${link(d, "sign-repair-areas")}">Sign Repair Areas</a> · ${esc(a.county)}` })}
+${hero(d, { title: `SIGN REPAIR IN ${a.name}`, text: a.about, photo: a.photo, split: true, crumb: `<a href="${link(d, "sign-repair-areas")}">Sign Repair Areas</a> · ${esc(a.county)}` })}
 <section class="sec"><div class="wrap stack"><h2>WHAT DOES YOUR SIGN NEED IN ${esc(a.name)}?</h2><div class="two">${L.repairs.map((r) => `<div class="panel"><h3><a href="${link(d, r.slug + "-" + a.slug)}" style="color:var(--ink);text-decoration:none">${esc(r.name)}</a></h3><p>${esc(r.short)}</p><a href="${link(d, r.slug + "-" + a.slug)}">${esc(r.name)} in ${esc(a.name)}</a></div>`).join("")}</div></div></section>
-<section class="sec mist"><div class="wrap two"><div class="stack"><h2>SIGNS WE SERVICE HERE</h2><p>In ${esc(a.name)} we mostly work on ${esc(a.typical)}. Every sign is different, so we quote each one after a quick look.</p></div><div class="note"><h3 style="margin-bottom:8px">Permits in ${esc(a.name)}</h3><p>Sign permits for most addresses here go through ${esc(a.permit)}. Many repairs don't need a permit at all; we tell you before any work starts.</p></div></div></section>
+<section class="sec mist"><div class="wrap two"><div class="stack"><h2>SIGNS WE SERVICE HERE</h2><p>Common business signs in ${esc(a.name)} include ${esc(a.typical)}. Every sign is different, so we quote each one after a quick look.</p></div><div class="note"><h3 style="margin-bottom:8px">Permits in ${esc(a.name)}</h3><p>Sign permits for most addresses here go through ${esc(a.permit)}. Many repairs don't need a permit at all; we tell you before any work starts.</p></div></div></section>
 <section class="sec"><div class="wrap stack"><h2>NEARBY AREAS</h2>${areaList(d, near)}</div></section>
 ${newSigns(d, a.name)}
 ${cta(d, `NEED A SIGN REPAIRED IN ${a.name}?`, "Send photos of your sign and the address. We reply the same day.")}` });
@@ -413,17 +428,17 @@ ${cta(d, `NEED ${r.name.toUpperCase()}?`, "Send photos of your sign and the addr
 L.repairs.forEach((r) => L.areas.forEach((a) => {
   const d = 1, slug = r.slug + "-" + a.slug;
   const others = L.repairs.filter((x) => x !== r);
-  page({ slug, depth: d, title: `${r.name} in ${a.name}, FL | Orlando Signs Services`, desc: `${r.name} in ${a.name}. ${r.short} Local crew, fast quotes. Call ${S.phone}.`, extraSchema: { areaServed: a.name, makesOffer: { "@type": "Offer", itemOffered: { "@type": "Service", name: `${r.name} in ${a.name}` } } }, body: `
-${hero(d, { title: `${r.name} IN ${a.name}`, text: r.intro, photo: r.photos[0], crumb: `<a href="${link(d, "sign-repair-" + a.slug)}">Sign Repair in ${esc(a.name)}</a> · ${esc(a.county)}` })}
+  page({ slug, depth: d, hold: !(L.live || []).includes(slug), title: `${r.name} in ${a.name}, FL | Orlando Signs Services`, desc: `${r.name} in ${a.name}. ${r.short} Local crew, fast quotes. Call ${S.phone}.`, extraSchema: { areaServed: a.name, makesOffer: { "@type": "Offer", itemOffered: { "@type": "Service", name: `${r.name} in ${a.name}` } } }, body: `
+${hero(d, { title: `${r.name} IN ${a.name}`, text: r.intro, photo: a.photo, split: true, crumb: `<a href="${link(d, "sign-repair-" + a.slug)}">Sign Repair in ${esc(a.name)}</a> · ${esc(a.county)}` })}
 <section class="sec"><div class="wrap two">
-<div class="stack"><h2>${esc(r.name)} FOR ${esc(a.name)} BUSINESSES</h2><p>${esc(a.about)}</p><p>Most of the signs we service in ${esc(a.name)} are ${esc(a.typical)}, and ${esc(r.name.toLowerCase())} is one of the most common calls we get for them.</p></div>
+<div class="stack"><h2>${esc(r.name)} FOR ${esc(a.name)} BUSINESSES</h2><p>${esc(a.about)}</p><p>Common business signs in ${esc(a.name)} include ${esc(a.typical)}.</p></div>
 <div class="panel"><h3>Signs it needs attention</h3>${ticks(r.signs)}</div>
 </div></section>
 <section class="sec mist"><div class="wrap two">
 <div class="panel"><h3>What we do</h3>${ticks(r.fix)}</div>
 <div class="note"><h3 style="margin-bottom:8px">Permits in ${esc(a.name)}</h3><p>${esc(r.permit)} For most addresses in ${esc(a.name)}, permits go through ${esc(a.permit)}.</p></div>
 </div></section>
-<section class="sec"><div class="wrap stack"><h2>RECENT SIGN WORK</h2>${gallery(d, r.photos)}</div></section>
+<section class="sec"><div class="wrap stack"><h2>RECENT SIGN WORK IN CENTRAL FLORIDA</h2>${gallery(d, r.photos)}</div></section>
 <section class="sec dark"><div class="wrap stack"><h2>OTHER SIGN REPAIRS IN ${esc(a.name)}</h2><div class="chips">${others.map((x) => `<a class="chip" href="${link(d, x.slug + "-" + a.slug)}">${esc(x.name)}</a>`).join("")}</div>
 <h2 style="margin-top:18px">${esc(r.name)} NEARBY</h2><div class="chips">${a.nearby.map((s) => `<a class="chip" href="${link(d, r.slug + "-" + s)}">${esc(areaBy[s].name)}</a>`).join("")}</div></div></section>
 ${newSigns(d, a.name)}

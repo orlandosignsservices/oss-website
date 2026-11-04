@@ -74,4 +74,23 @@ module.exports = function apply(W, L) {
     "pylon-pole-sign-repair": ["c33736_8f2fec", "c33736_a16424", "c33736_d18eaa"],
   };
   L.repairs.forEach((r) => (r.photos = R[r.slug].map(j)));
+
+  // FOTO DE FONDO DE CADA ZONA: solo un trabajo real hecho en esa zona.
+  // Si la zona no tiene foto propia, va el pylon de Orlando Signs Services al atardecer (sin cliente ni ciudad).
+  const neutral = j("c33736_9d6cab");
+  const areaPhoto = {
+    "altamonte-springs": j("06307d_715008"), // Sushi Rock (Os, 3 nov 2026: es de Altamonte Springs)
+    "downtown-orlando": j("c33736_7a62af"), // Coin Laundry (Os, 3 nov 2026: Downtown Orlando)
+    kissimmee: j("c33736_0ecda4"),
+    "winter-park": j("c33736_431ed6"), // Spa Nails (Os, 3 nov 2026)
+    "waterford-lakes": "waterford-lakes-peoples-tax.jpg", // The People's Tax (Os, 3 nov 2026; recortada sin la mesa ni la bolsa)
+    clermont: "clermont-lemont-coffee-lounge.jpg", // LeMont Coffee Lounge (Os, 3 nov 2026; recortada sin escalera ni herramientas)
+    "ucf-east-orlando": j("c33736_1f9cce"), // Saku Sauna & Massage de noche (Os, 3 nov 2026: East Orlando)
+    sanford: "sanford-relax-or-knot-chair-massage.jpg", // Relax or Knot Chair Massage (foto que mandó Os, 3 nov 2026)
+    millenia: "millenia-mattress-mars.jpg", // Mattress Mars (Os, 3 nov 2026; recortada sin el parqueo)
+    "dr-phillips": "dr-phillips-bay-hill-jewelers.jpg", // Bay Hill Jewelers (Os, 3 nov 2026; recortada sin el equipo abajo)
+    "international-drive": "international-drive-cafe-tu-tu-tango.jpg", // Cafe Tu Tu Tango (Os, 3 nov 2026)
+    "lake-nona": "lake-nona-nona-park-monument.jpg", // Nona Park monument (Os, 3 nov 2026; recortada sin herramientas en el piso) // Yamato Sushi Steak House (Os, 3 nov 2026: Yamato y Mikado son de Kissimmee)
+  };
+  L.areas.forEach((a) => (a.photo = areaPhoto[a.slug] || neutral));
 };

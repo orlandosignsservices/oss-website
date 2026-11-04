@@ -76,14 +76,16 @@ module.exports = {
       slug: "pylon-pole-sign-repair",
       name: "Pylon & Pole Sign Repair",
       short: "Tall signs: panels, lighting, repainting and rust treatment.",
-      intro: "Pylon and pole signs take the most sun and wind, and fixing them needs the right lift. We repair lighting and power, replace tenant panels and faces, repaint cabinets and poles, and treat rust before it becomes a structural problem.",
+      intro: "Pylon and pole signs take the most sun and wind, and fixing them takes experienced crews and the right equipment for every job. We repair lighting and power, replace tenant panels and faces, repaint cabinets and poles, and treat rust before it becomes a structural problem.",
       signs: ["Tenant panels are cracked or faded", "Part of the sign is dark", "Pole or cabinet paint is peeling", "Rust on the pole or base", "Storm damage on a tall sign"],
-      fix: ["Lift work for high signs", "Panel and face replacement", "Lighting and power repair", "Repainting of cabinets and poles with rust treatment"],
+      fix: ["Repairs on tall signs, done safely", "Panel and face replacement", "Lighting and power repair", "Repainting of cabinets and poles with rust treatment"],
       permit: "Panel replacement and repainting usually need no permit. Structural or electrical changes can, and we confirm before quoting.",
       photos: ["install-2.jpg", "repair-2.jpg", "install-1.jpg"],
     },
   ],
 
+  // Combinaciones reparación-zona abiertas a Google (agregar el slug cuando haya un trabajo real con foto, ej. "led-sign-repair-kissimmee")
+  live: [],
   areas: [
     {
       slug: "downtown-orlando",
@@ -99,7 +101,7 @@ module.exports = {
       name: "International Drive",
       county: "Orange County",
       permit: "unincorporated Orange County or the City of Orlando, depending on the exact address",
-      about: "International Drive is hotels, attractions, restaurants and plazas built for visitors who decide where to go from the road. Signs on I-Drive run long hours, take full sun, and many are tall pylons that need lift work.",
+      about: "International Drive is hotels, attractions, restaurants and plazas built for visitors who decide where to go from the road. Signs on I-Drive run long hours, take full sun, and many are tall pylons.",
       typical: "tall pylons, hotel and restaurant channel letters, and plaza tenant panels",
       nearby: ["dr-phillips", "millenia", "kissimmee"],
     },

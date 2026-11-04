@@ -41,7 +41,7 @@ module.exports = {
     reviewTitle: "WHAT OUR CLIENTS SAY",
     review: "Orlando Signs Services made the entire process seamless, from permits to installation. Our new storefront sign completely transformed our laundromat’s curb appeal. We’ve seen more walk-in traffic ever since! Professional, fast, and reliable. Highly recommend.",
     ctaTitle: "READY TO INSTALL YOUR SIGN IN ORLANDO?",
-    ctaText: "We serve Orlando, Kissimmee, Sanford, and nearby cities.",
+    ctaText: "We serve Orlando, Kissimmee, Sanford, Winter Park, Lake Nona, Clermont and all of Central Florida.",
   },
 
   about: {

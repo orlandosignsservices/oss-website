@@ -49,7 +49,7 @@ module.exports = {
     title: "About Us | Orlando Signs Services: Premier Signage Solutions in Orlando, FL",
     desc: "Orlando Signs Services is a commercial sign installation company in Orlando, FL, serving sign companies, contractors and businesses across Central Florida.",
     whoTitle: "WHO WE ARE",
-    who: "Orlando Signs Services is an experienced sign installation company based in Orlando, FL. We specialize in the professional installation of commercial signage: channel letters, pylon signs, monument signs, cabinet signs, and interior branding, for sign companies, contractors, franchise groups, and property managers throughout Central Florida. We don't manufacture signs. We install them — precisely, safely, and on schedule. Whether you need a subcontractor for a single location or a reliable installation partner for ongoing regional work, we're the team you can count on.",
+    who: "Orlando Signs Services is an experienced sign installation company based in Orlando, FL. We specialize in the professional installation of commercial signage: channel letters, pylon signs, monument signs, cabinet signs, and interior branding, for sign companies, contractors, franchise groups, and property managers throughout Central Florida. We don't manufacture signs. We install them precisely, safely and on schedule. Whether you need a subcontractor for a single location or a reliable installation partner for ongoing regional work, we're the team you can count on.",
     missionTitle: "OUR MISSION",
     mission: [
       "To be Central Florida's most reliable sign installation partner, delivering code-compliant, professionally executed installs on time, every time.",

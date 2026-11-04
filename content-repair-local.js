@@ -9,7 +9,7 @@ module.exports = {
       intro: "When part of your sign goes dark or starts flickering, customers notice before you do. We find the failed LED modules, bad connections or water damage, replace what is needed, and test the whole sign at night so it lights evenly again.",
       signs: ["One or more letters are dark", "The sign flickers or blinks", "Some sections look dimmer than others", "LEDs turned a different color or look spotty", "Water or condensation inside the letters or cabinet"],
       fix: ["Full diagnosis of LED modules, wiring and connections", "LED module replacement matched to the existing light", "Rewiring and sealed connections", "Night test of the whole sign before we leave"],
-      permit: "We replace failed LED modules to match your existing light. If the repair needs new circuits or added electrical work and a permit is required, we handle the permit for you too.",
+      permit: "We replace failed LED modules to match your existing light. If the repair needs new circuits or added electrical work and a permit is needed, we are able to handle it for you.",
       photos: ["repair-1.jpg", "work-2.jpg", "work-3.jpg"],
     },
     {
@@ -19,7 +19,7 @@ module.exports = {
       intro: "Florida sun fades sign faces and storms crack them. We remove the damaged face, take exact measurements, and install a new acrylic or polycarbonate face with your current graphics, so your cabinet looks new without replacing the whole sign.",
       signs: ["Face is cracked, broken or has holes", "Colors faded from the sun", "Face is yellowed or cloudy", "Storm or impact damage", "You changed your logo or business name"],
       fix: ["Measurement and template of the existing face", "New acrylic or polycarbonate face with your graphics", "Removal and disposal of the old face", "Installation, sealing and night test"],
-      permit: "We replace the face on your existing cabinet sign. If the job includes changes to the cabinet, its size or its electrical and a permit is needed, we handle the permit for you too.",
+      permit: "We replace the face on your existing cabinet sign. If the job includes changes to the cabinet and a permit is needed, we are able to handle it for you.",
       photos: ["repair-4.jpg", "work-3.jpg", "repair-2.jpg"],
     },
     {
@@ -29,7 +29,7 @@ module.exports = {
       intro: "A single dark or broken letter changes how your business name reads from the road. We repair individual channel letters on the wall: lighting, faces, returns and trim cap, and we secure loose letters so they stay put through the next storm.",
       signs: ["One letter is out while the rest work", "A letter is loose, tilted or pulling off the wall", "Trim cap is peeling or missing", "Cracked letter face or dented returns", "Water inside a letter"],
       fix: ["Repair of the letter's LEDs and power", "Letter face and trim cap replacement", "Re-securing loose letters and sealing wall penetrations", "Raceway repair and repaint when needed"],
-      permit: "We repair your existing channel letters. If the job includes moving letters, adding new ones or new wall penetrations and a permit is needed, we handle the permit for you too.",
+      permit: "We repair your existing channel letters. If the job includes moving letters, adding new ones or new wall penetrations and a permit is needed, we are able to handle it for you.",
       photos: ["work-4.jpg", "work-1.jpg", "repair-1.jpg"],
     },
     {
@@ -39,7 +39,7 @@ module.exports = {
       intro: "If your sign won't turn on at night or stays lit all day, the problem is usually the power supply, a transformer, a ballast, the timer or the photocell. We troubleshoot the whole circuit and replace the failed part so your sign runs on its own schedule again.",
       signs: ["Sign won't turn on", "Sign stays on during the day", "It turns off after a few minutes", "Buzzing or a burning smell", "Breaker trips when the sign comes on"],
       fix: ["Testing of power supplies, transformers and ballasts", "Replacement of failed power components", "Timer and photocell repair or replacement", "Safety check of disconnects and wiring"],
-      permit: "Swapping a failed power supply or timer is a repair. New circuits or panel work may need an electrical permit, and we tell you before we start.",
+      permit: "We replace failed power supplies, transformers and timers. If the job needs new circuits or panel work and a permit is needed, we are able to handle it for you.",
       photos: ["repair-3.jpg", "work-2.jpg", "repair-1.jpg"],
     },
     {
@@ -49,7 +49,7 @@ module.exports = {
       intro: "Old neon is expensive to repair and costly to run. We convert neon channel letters and cabinets to LED, keeping your sign's look while cutting power use and the number of service calls.",
       signs: ["Neon tubes keep breaking or flickering", "Transformers fail often", "High power bill for the sign", "Neon parts are hard to find", "You want a brighter, more even light"],
       fix: ["Removal of neon tubes and transformers", "LED modules sized for each letter or cabinet", "New LED power supplies", "Night test and color check"],
-      permit: "Some cities treat an LED conversion as a repair and others want an electrical permit. We check the rule for your address before we start.",
+      permit: "We convert old neon to LED. If your city requires a permit for the conversion, we are able to handle it for you.",
       photos: ["work-2.jpg", "repair-1.jpg", "work-3.jpg"],
     },
     {
@@ -59,7 +59,7 @@ module.exports = {
       intro: "Dust, mildew, pollen and bugs inside the cabinet make a working sign look old. We clean faces, letters and cabinets inside and out so your sign looks bright again, and we tell you about anything we see that needs repair.",
       signs: ["Faces look dirty or grey", "Bugs or debris inside the cabinet", "Mildew or water stains", "The sign looks dim even when it works", "It has been more than a year since the last cleaning"],
       fix: ["Exterior cleaning of faces and letters", "Opening and cleaning inside the cabinet", "Removal of bugs, nests and debris", "Photo report with anything that needs attention"],
-      permit: "We clean faces, letters and cabinets inside and out. If we find a repair that needs a permit, we explain it and handle the permit for you.",
+      permit: "We clean faces, letters and cabinets inside and out. If we find a repair that needs a permit, we are able to handle it for you.",
       photos: ["repair-2.jpg", "repair-4.jpg", "work-1.jpg"],
     },
     {
@@ -69,7 +69,7 @@ module.exports = {
       intro: "A maintenance plan keeps your sign working and looking new. We visit on a set schedule, check lighting, power, faces and structure, clean the sign, and fix small problems before they turn into expensive repairs. Plans work for one location or all of them.",
       signs: ["You have several locations to keep up", "Your sign is more than five years old", "Repairs keep coming back", "You want to avoid surprise breakdowns", "Your landlord or brand requires sign upkeep"],
       fix: ["Scheduled inspections of lighting, power and structure", "Cleaning on each visit", "Small repairs on the spot", "Photo report after every visit"],
-      permit: "We keep your sign working on a set schedule. If we find something that needs a permit, we explain it and handle the permit for you.",
+      permit: "We keep your sign working on a set schedule. If we find something that needs a permit, we are able to handle it for you.",
       photos: ["repair-3.jpg", "repair-2.jpg", "install-1.jpg"],
     },
     {
@@ -79,7 +79,7 @@ module.exports = {
       intro: "Pylon and pole signs take the most sun and wind, and fixing them takes experienced crews and the right equipment for every job. We repair lighting and power, replace tenant panels and faces, repaint cabinets and poles, and treat rust before it becomes a structural problem.",
       signs: ["Tenant panels are cracked or faded", "Part of the sign is dark", "Pole or cabinet paint is peeling", "Rust on the pole or base", "Storm damage on a tall sign"],
       fix: ["Repairs on tall signs, done safely", "Panel and face replacement", "Lighting and power repair", "Repainting of cabinets and poles with rust treatment"],
-      permit: "We replace panels and repaint cabinets and poles. If the job includes structural or electrical changes and a permit is needed, we handle the permit for you too.",
+      permit: "We replace panels and repaint cabinets and poles. If the job includes structural or electrical changes and a permit is needed, we are able to handle it for you.",
       photos: ["install-2.jpg", "repair-2.jpg", "install-1.jpg"],
     },
   ],

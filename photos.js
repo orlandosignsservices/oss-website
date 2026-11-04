@@ -71,7 +71,7 @@ module.exports = function apply(W, L) {
     "neon-to-led-conversion": ["c33736_c8fd0f", "c33736_fcd189", "c33736_0ecda4"],
     "sign-cleaning": ["c33736_7a62af", "c33736_cb2a53", "c33736_ca2798"],
     "sign-maintenance": ["c33736_431ed6", "c33736_7a62af", "c33736_0a41f7"],
-    "pylon-pole-sign-repair": ["c33736_a16424", "c33736_8f2fec", "c33736_d18eaa"],
+    "pylon-pole-sign-repair": ["c33736_25e10f", "c33736_a16424", "c33736_d18eaa"],
   };
   L.repairs.forEach((r) => (r.photos = R[r.slug].map(j)));
 

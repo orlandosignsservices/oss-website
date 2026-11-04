@@ -126,15 +126,15 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 /* tiles con foto */
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px}
 .tile{position:relative;display:block;border-radius:12px;overflow:hidden;aspect-ratio:4/3;max-width:100%;color:#fff;text-decoration:none}
-.tile img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
-.tile:hover img{transform:scale(1.05)}
-.tile span{position:absolute;inset:auto 0 0;padding:18px;font-family:var(--display);font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:linear-gradient(0deg,rgba(0,0,0,.78),transparent)}
+.tile{background:#111}.tile img{position:relative;width:100%;height:100%;object-fit:contain;transition:transform .5s}.tile img.bgfill{position:absolute;inset:0;object-fit:cover;filter:blur(16px) brightness(.55);transform:scale(1.15)}
+.tile:hover img:not(.bgfill){transform:scale(1.03)}
+.tile span{position:absolute;inset:auto 0 0;padding:18px;text-align:center;font-family:var(--display);font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:linear-gradient(0deg,rgba(0,0,0,.78),transparent)}
 
 .why{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:18px}
 .why .panel h3{color:var(--orange)}
 
 .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:14px}
-.gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px}
+.gph{position:relative;aspect-ratio:4/3;max-width:100%;border-radius:10px;overflow:hidden;background:#111}.gph img{position:relative;display:block;width:100%;height:100%;object-fit:contain}.gph img.bgfill{position:absolute;inset:0;object-fit:cover;filter:blur(16px) brightness(.55);transform:scale(1.15)}
 
 .quote{font-size:19px;font-style:italic;max-width:780px}
 
@@ -219,9 +219,14 @@ function cta(d, title, text) {
   return `<section class="cta"><div class="wrap"><h2>${esc(title)}</h2>${text ? `<p>${esc(text)}</p>` : ""}<div class="btns"><a class="btn btn-black" href="${link(d, "contact")}">Request a Free Quote</a><a class="btn btn-line" href="${S.phoneHref}">Call ${S.phone}</a></div><p class="meta">Email <b>${S.email}</b> · Phone <b>${S.phone}</b></p></div></section>`;
 }
 
-function hero(d, { title, text, photo, crumb, buttons = true, h = "h1", split = false }) {
-  const posMap = { "06307d_715008.jpg": "center 34%", "c33736_0ecda4.jpg": "center 12%", "c33736_9d6cab.jpg": "80% 30%", "c33736_7a62af.jpg": "center 35%", "international-drive-cafe-tu-tu-tango.jpg": "left center", "dr-phillips-bay-hill-jewelers.jpg": "center 22%", "millenia-mattress-mars.jpg": "center 30%", "sanford-relax-or-knot-chair-massage.jpg": "38% center" };
-  const fitMap = { "waterford-lakes-peoples-tax.jpg": true }; // foto ancha y pequeña: se muestra completa sin agrandar
+const tilePos = { "c33736_fc722b.jpg": "center 38%", "c33736_8f2fec.jpg": "center 38%", "06307d_559a98.jpg": "center top" }; // tarjetas: dónde enfocar cada foto
+const tileZoom = { "c33736_ca2798.jpg": "scale(1.45);transform-origin:center 20%", "c33736_d18eaa.jpg": "scale(1.4);transform-origin:center 30%", "c33736_819ac0.jpg": "scale(1.9);transform-origin:center 32%" }; // Os 4 nov: como estaban pero un poco más alejadas
+const tz = (f) => (tileZoom[f] ? ` style="transform:${tileZoom[f]}"` : "");
+const tp = (f) => (tilePos[f] ? ` style="object-position:${tilePos[f]}"` : "");
+function hero(d, { title, text, photo, crumb, buttons = true, h = "h1", split = true }) {
+  // Todas las portadas: texto a un lado y foto completa al otro (3 nov 2026, Os: ningún texto encima de un letrero)
+  const posMap = { "06307d_559a98.jpg": "center top", "c33736_1920f0.jpg": "center top", "c33736_c8fd0f.jpg": "center 15%", "06307d_715008.jpg": "center 34%", "c33736_0ecda4.jpg": "center 12%", "c33736_9d6cab.jpg": "80% 30%", "c33736_7a62af.jpg": "center 35%", "international-drive-cafe-tu-tu-tango.jpg": "left center", "dr-phillips-bay-hill-jewelers.jpg": "center 22%", "millenia-mattress-mars.jpg": "center 30%", "sanford-relax-or-knot-chair-massage.jpg": "38% center" };
+  const fitMap = { "waterford-lakes-peoples-tax.jpg": true, "c33736_fc722b.jpg": true, "c33736_8f2fec.jpg": true }; // fotos pequeñas o collages antes/después: se muestran completas // foto ancha y pequeña: se muestra completa sin agrandar
   if (split) {
     // Zonas: texto a la izquierda en fondo oscuro, foto completa a la derecha (el texto nunca tapa el letrero)
     return `<section class="hero-split"><div class="hs-text">${crumb ? `<div class="crumb">${crumb}</div>` : ""}<${h}>${esc(title)}</${h}>${text ? `<p>${esc(text)}</p>` : ""}${buttons ? `<div class="btns"><a class="btn btn-orange" href="${link(d, "contact")}">Request a Free Quote</a></div>` : ""}</div><div class="hs-photo" style="background-image:url('${img(d, photo)}')${posMap[photo] ? ";background-position:" + posMap[photo] : ""}${fitMap[photo] ? ";background-size:contain;background-color:#0b0d10" : ""}" role="img" aria-label="Sign installed by Orlando Signs Services"></div></section>`;
@@ -230,7 +235,7 @@ function hero(d, { title, text, photo, crumb, buttons = true, h = "h1", split = 
   return `<section class="hero" style="background-image:url('${img(d, photo)}')${pos}"><div class="wrap">${crumb ? `<div class="crumb">${crumb}</div>` : ""}<${h}>${esc(title)}</${h}>${text ? `<p>${esc(text)}</p>` : ""}${buttons ? `<div class="btns"><a class="btn btn-black" href="${link(d, "contact")}">Request a Free Quote</a></div>` : ""}</div></section>`;
 }
 
-const gallery = (d, list) => `<div class="gallery">${list.map((f) => { const [src, alt] = Array.isArray(f) ? f : [f, "Commercial sign installation by Orlando Signs Services in Central Florida"]; return `<img src="${img(d, src)}" alt="${esc(alt)}" loading="lazy">`; }).join("")}</div>`;
+const gallery = (d, list) => `<div class="gallery">${list.map((f) => { const [src, alt] = Array.isArray(f) ? f : [f, "Commercial sign installation by Orlando Signs Services in Central Florida"]; return `<div class="gph"><img class="bgfill" src="${img(d, src)}" alt="" aria-hidden="true" loading="lazy"><img src="${img(d, src)}" alt="${esc(alt)}" loading="lazy"></div>`; }).join("")}</div>`;
 const ticks = (list) => `<ul class="ticks">${list.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>`;
 
 function schema(extra) {
@@ -273,7 +278,7 @@ ${footer(depth)}
   page({ slug: "", depth: d, title: H.title, desc: H.desc, body: `
 ${hero(d, { title: H.heroTitle, text: H.heroText, photo: H.heroPhoto })}
 <section class="sec"><div class="wrap two"><div class="stack"><h2>${esc(H.aboutTitle)}</h2><p>${esc(H.aboutText)}</p></div><img src="${img(d, H.aboutPhoto)}" alt="Pylon sign with Orlando Signs Services logo at sunset" style="border-radius:12px;width:100%;aspect-ratio:4/3;object-fit:cover"></div></section>
-<section class="sec mist"><div class="wrap stack"><h2 style="text-align:center">${esc(H.servicesTitle)}</h2><div class="tiles">${H.tiles.map(([t, s, f]) => `<a class="tile" href="${link(d, s)}"><img src="${img(d, f)}" alt="${esc(t)}" loading="lazy"><span>${esc(t)}</span></a>`).join("")}</div></div></section>
+<section class="sec mist"><div class="wrap stack"><h2 style="text-align:center">${esc(H.servicesTitle)}</h2><div class="tiles">${H.tiles.map(([t, s, f]) => `<a class="tile" href="${link(d, s)}"><img class="bgfill" src="${img(d, f)}" alt="" aria-hidden="true" loading="lazy"><img src="${img(d, f)}"${tz(f)} alt="${esc(t)}" loading="lazy"><span>${esc(t)}</span></a>`).join("")}</div></div></section>
 <section class="sec"><div class="wrap stack"><h2 style="text-align:center">${esc(H.whyTitle)}</h2><div class="why">${H.why.map(([t, x]) => `<div class="panel"><h3>${esc(t)}</h3><p>${esc(x)}</p></div>`).join("")}</div></div></section>
 <section class="sec dark"><div class="wrap stack"><h2 style="text-align:center">SIGN REPAIR NEAR YOU</h2><p style="text-align:center;max-width:760px;margin-inline:auto">Lights out, a broken face or a dark letter? Find sign repair in your part of Central Florida.</p><div class="chips" style="justify-content:center">${L.areas.map((a) => `<a class="chip" href="${link(d, "sign-repair-" + a.slug)}">${esc(a.name)}</a>`).join("")}</div></div></section>
 <section class="sec"><div class="wrap stack"><h2 style="text-align:center">${esc(H.recentTitle)}</h2>${gallery(d, H.gallery)}<p style="text-align:center">${esc(H.recentText)}</p></div></section>
@@ -373,7 +378,7 @@ ${hero(d, { title: R.h1, text: R.lead, photo: R.mainPhoto })}
 <div class="stack"><h2>${esc(R.serviceTitle)}</h2><p>${esc(R.serviceText)}</p></div>
 <div class="panel"><h3>${esc(R.listTitle)}</h3>${ticks(R.list)}</div>
 </div></section>
-<section class="sec dark"><div class="wrap stack"><h2>WHAT DOES YOUR SIGN NEED?</h2><div class="tiles">${L.repairs.map((r) => `<a class="tile" href="${link(d, r.slug)}"><img src="${img(d, r.photos[0])}" alt="${esc(r.name)}" loading="lazy"><span>${esc(r.name)}</span></a>`).join("")}</div></div></section>
+<section class="sec dark"><div class="wrap stack"><h2>WHAT DOES YOUR SIGN NEED?</h2><div class="tiles">${L.repairs.map((r) => `<a class="tile" href="${link(d, r.slug)}"><img class="bgfill" src="${img(d, r.photos[0])}" alt="" aria-hidden="true" loading="lazy"><img src="${img(d, r.photos[0])}" alt="${esc(r.name)}" loading="lazy"><span>${esc(r.name)}</span></a>`).join("")}</div></div></section>
 <section class="sec mist"><div class="wrap two"><div class="stack"><h2>${esc(R.packageTitle)}</h2><p>${esc(R.packageIntro)}</p>${ticks(R.package)}<p>${esc(R.packageOutro)}</p></div><div>${gallery(d, [L.repairs[0].photos[1], L.repairs[1].photos[0]])}</div></div></section>
 <section class="sec"><div class="wrap stack"><h2>SIGN REPAIR BY AREA</h2>${areaList(d)}</div></section>
 <section class="sec mist"><div class="wrap stack"><h2 style="text-align:center">${esc(R.recentTitle)}</h2>${gallery(d, R.photos)}<p style="text-align:center">${esc(R.areas)}</p></div></section>

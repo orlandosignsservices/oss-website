@@ -4,12 +4,12 @@ module.exports = function apply(W, L) {
   // HOME
   W.home.heroPhoto = j("c33736_297144"); // Mikado Sushi
   W.home.aboutPhoto = j("c33736_9d6cab"); // pylon al atardecer (editado, sin equipo)
-  W.home.tiles[0][2] = j("c33736_ca2798"); // Ji Bei Chuan flush mount
+  W.home.tiles[0][2] = j("c33736_ca2798"); // Ji Bei Chuan flush mount (collage original)
   W.home.tiles[1][2] = j("c33736_cb2a53"); // Coin Laundry contour lightbox
   W.home.tiles[2][2] = j("c33736_d18eaa"); // pylon
   W.home.tiles[3][2] = j("c33736_819ac0"); // interior lobby
   W.home.tiles[4][2] = j("06307d_12a5ec"); // Avia monument
-  W.home.tiles[5][2] = j("c33736_8f2fec"); // Saku pole before/after
+  W.home.tiles[5][2] = j("c33736_25e10f"); // Saku antes y después lado a lado (3 nov 2026) // Saku pole before/after
   W.home.gallery = [
     ["c33736_c8fd0f", "Relax or Knot Chair Massage halo-lit storefront sign installation, Central Florida"],
     ["c33736_fcd189", "Modani Furniture illuminated channel letter sign at night, Central Florida"],
@@ -71,7 +71,7 @@ module.exports = function apply(W, L) {
     "neon-to-led-conversion": ["c33736_c8fd0f", "c33736_fcd189", "c33736_0ecda4"],
     "sign-cleaning": ["c33736_7a62af", "c33736_cb2a53", "c33736_ca2798"],
     "sign-maintenance": ["c33736_9d6cab", "c33736_7a62af", "c33736_0a41f7"],
-    "pylon-pole-sign-repair": ["c33736_8f2fec", "c33736_a16424", "c33736_d18eaa"],
+    "pylon-pole-sign-repair": ["c33736_a16424", "c33736_8f2fec", "c33736_d18eaa"],
   };
   L.repairs.forEach((r) => (r.photos = R[r.slug].map(j)));
 

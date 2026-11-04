@@ -175,6 +175,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 footer{background:var(--black);color:#cfcac6;font-size:14px}
 footer .wrap{padding-block:44px 28px;display:grid;gap:24px}
 footer .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:24px}
+footer .cols > *{min-width:0;overflow-wrap:anywhere}
 footer h4{font-family:var(--display);color:#fff;text-transform:uppercase;letter-spacing:.1em;font-size:13px;margin:0 0 10px}
 footer a{color:#cfcac6;text-decoration:none;display:block;padding:3px 0}
 footer a:hover{color:var(--orange)}

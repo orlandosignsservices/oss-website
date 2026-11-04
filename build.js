@@ -159,6 +159,17 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .arow h3 a:hover{color:var(--orange)}
 .arow .county{font-size:13px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:6px}
 @media (max-width:760px){.arow{grid-template-columns:1fr;gap:14px}}
+.zgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:12px;align-items:start}
+.zone{border:1.5px solid var(--orange);border-radius:12px;background:#fff}
+.zone summary{cursor:pointer;list-style:none;padding:14px 18px;font-family:var(--display);font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--orange-dark);display:flex;justify-content:space-between;align-items:center}
+.zone summary::-webkit-details-marker{display:none}
+.zone summary::after{content:"+";font-size:22px;line-height:1}
+.zone[open] summary::after{content:"−"}
+.zone[open]{background:var(--mist)}
+.zone ul{list-style:none;margin:0;padding:0 18px 14px;display:grid;gap:8px}
+.zone li a{color:var(--ink);text-decoration:none;font-size:16px}
+.zone li a:hover{color:var(--orange)}
+.zone li.all a{font-weight:700;color:var(--orange-dark)}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{display:inline-block;border:1.5px solid var(--orange);color:var(--orange-dark);border-radius:999px;padding:7px 14px;font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.09em;text-transform:uppercase;text-decoration:none;background:#fff}
 .chip:hover{background:var(--orange);color:#fff}
@@ -389,7 +400,7 @@ ${hero(d, { title: R.h1, text: R.lead, photo: R.mainPhoto })}
 </div></section>
 <section class="sec dark"><div class="wrap stack"><h2>WHAT DOES YOUR SIGN NEED?</h2><div class="tiles">${L.repairs.map((r) => `<a class="tile" href="${link(d, r.slug)}"><img class="bgfill" src="${img(d, r.photos[0])}" alt="" aria-hidden="true" loading="lazy"><img src="${img(d, r.photos[0])}" alt="${esc(r.name)}" loading="lazy"><span>${esc(r.name)}</span></a>`).join("")}</div></div></section>
 <section class="sec mist"><div class="wrap two"><div class="stack"><h2>${esc(R.packageTitle)}</h2><p>${esc(R.packageIntro)}</p>${ticks(R.package)}<p>${esc(R.packageOutro)}</p></div><div>${gallery(d, [L.repairs[0].photos[1], L.repairs[1].photos[0]])}</div></div></section>
-<section class="sec"><div class="wrap stack"><h2>SIGN REPAIR BY AREA</h2><p>Pick your area to see what we fix there.</p><div class="chips">${L.areas.map((a) => `<a class="chip" href="${link(d, "sign-repair-" + a.slug)}">${esc(a.name)}</a>`).join("")}</div></div></section>
+<section class="sec"><div class="wrap stack"><h2>SIGN REPAIR BY AREA</h2><p>Click your area to see the repairs we do there.</p><div class="zgrid">${L.areas.map((a) => `<details class="zone"><summary>${esc(a.name)}</summary><ul>${L.repairs.map((r) => `<li><a href="${link(d, r.slug + "-" + a.slug)}">${esc(r.name)}</a></li>`).join("")}<li class="all"><a href="${link(d, "sign-repair-" + a.slug)}">All sign repair in ${esc(a.name)}</a></li></ul></details>`).join("")}</div></div></section>
 <section class="sec mist"><div class="wrap stack"><h2 style="text-align:center">${esc(R.recentTitle)}</h2>${gallery(d, R.photos)}<p style="text-align:center">${esc(R.areas)}</p></div></section>
 ${newSigns(d)}
 ${cta(d, R.cta, "")}` });

@@ -65,7 +65,7 @@ module.exports = function apply(W, L) {
   // SIGN REPAIR LOCAL: fotos de tu Wix según el tipo de reparación
   const R = {
     "led-sign-repair": ["06307d_715008", "c33736_1f9cce", "c33736_431ed6"],
-    "sign-face-replacement": ["c33736_cb2a53", "c33736_7178b6", "c33736_ac6f05"], // fc722b quitada: era window vinyl, no face (Os 4 nov),
+    "sign-face-replacement": ["c33736_de62ad", "c33736_cb2a53", "c33736_7178b6"], // fc722b quitada: era window vinyl, no face (Os 4 nov),
     "channel-letter-repair": ["06307d_559a98", "06307d_eea0e4", "06307d_38874a"],
     "sign-lighting-power-repair": ["c33736_1f9cce", "c33736_7178b6", "c33736_5cc3a1"],
     "neon-to-led-conversion": ["c33736_c8fd0f", "c33736_fcd189", "c33736_0ecda4"],

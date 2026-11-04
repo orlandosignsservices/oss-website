@@ -344,7 +344,7 @@ ${hero(d, { title: C.h1, text: C.text, photo: C.photo, buttons: false })}
 {
   const d = 1;
   page({ slug: W.book.slug, depth: d, title: W.book.title, desc: W.book.desc, body: `
-${hero(d, { title: "BOOK ONLINE", text: "Book a site survey or a sign service call.", photo: "c33736_9d6cab.jpg", buttons: false })}
+${hero(d, { title: "BOOK ONLINE", text: "Book a site survey or a sign service call.", photo: "06307d_d58e03.jpg", buttons: false })}
 <section class="sec"><div class="wrap stack center narrow" style="margin-inline:auto"><div style="width:100%">${LC_WIDGET}</div><p>Prefer to talk? Call <b style="user-select:all">${S.phone}</b> or email <b style="user-select:all">${S.email}</b>.</p></div></section>` });
 }
 

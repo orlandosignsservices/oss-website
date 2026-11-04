@@ -3,7 +3,7 @@ const j = (id) => id + ".jpg";
 module.exports = function apply(W, L) {
   // HOME
   W.home.heroPhoto = j("c33736_297144"); // Mikado Sushi
-  W.home.aboutPhoto = j("c33736_9d6cab"); // pylon al atardecer (editado, sin equipo)
+  W.home.aboutPhoto = j("c33736_1f9cce"); // Saku de noche (foto real; el pylon OSS al atardecer era generado con IA, quitado 4 nov 2026)
   W.home.tiles[0][2] = j("c33736_ca2798"); // Ji Bei Chuan flush mount (collage original)
   W.home.tiles[1][2] = j("c33736_cb2a53"); // Coin Laundry contour lightbox
   W.home.tiles[2][2] = j("c33736_d18eaa"); // pylon
@@ -70,14 +70,14 @@ module.exports = function apply(W, L) {
     "sign-lighting-power-repair": ["c33736_1f9cce", "c33736_7178b6", "c33736_5cc3a1"],
     "neon-to-led-conversion": ["c33736_c8fd0f", "c33736_fcd189", "c33736_0ecda4"],
     "sign-cleaning": ["c33736_7a62af", "c33736_cb2a53", "c33736_ca2798"],
-    "sign-maintenance": ["c33736_9d6cab", "c33736_7a62af", "c33736_0a41f7"],
+    "sign-maintenance": ["c33736_431ed6", "c33736_7a62af", "c33736_0a41f7"],
     "pylon-pole-sign-repair": ["c33736_a16424", "c33736_8f2fec", "c33736_d18eaa"],
   };
   L.repairs.forEach((r) => (r.photos = R[r.slug].map(j)));
 
   // FOTO DE FONDO DE CADA ZONA: solo un trabajo real hecho en esa zona.
   // Si la zona no tiene foto propia, va el pylon de Orlando Signs Services al atardecer (sin cliente ni ciudad).
-  const neutral = j("c33736_9d6cab");
+  const neutral = j("c33736_297144"); // Mikado Sushi (foto real)
   const areaPhoto = {
     "altamonte-springs": j("06307d_715008"), // Sushi Rock (Os, 3 nov 2026: es de Altamonte Springs)
     "downtown-orlando": j("c33736_7a62af"), // Coin Laundry (Os, 3 nov 2026: Downtown Orlando)

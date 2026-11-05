@@ -237,6 +237,7 @@ footer a:hover{color:var(--orange)}
 footer .line{border-top:1px solid #24211e;padding-top:20px;font-size:12px;color:#8a837c}
 .preview-flag{background:#fff4d6;color:#4a3a00;font-size:13px;text-align:center;padding:8px 16px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media (max-width:820px){.hs-text,.mission-text,.cta .wrap{text-align:center;justify-items:center}.sec .stack{text-align:center}.tile span{text-align:left}.hs-text p,.mission-text p{margin-inline:auto}.btns{justify-content:center}.trust{margin-inline:auto;text-align:center}.trust li{justify-items:center}h2::after{margin-inline:auto}.two>.stack,.two>p{text-align:center}.panel,.note{text-align:left}.ticks{text-align:left;justify-self:stretch}.why .panel{text-align:center;justify-items:center}.chips{justify-content:center}.arow{text-align:center}.arow .chips{justify-content:center}.zgrid,.posts{text-align:left}.post .stack{text-align:left;justify-items:stretch}.post h2::after{display:none}footer .cols{text-align:center}footer .line{text-align:center}}
 `;
 
 // ---------- piezas ----------

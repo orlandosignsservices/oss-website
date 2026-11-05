@@ -236,6 +236,8 @@ footer a{color:#bdb6af;text-decoration:none;display:block;padding:3px 0;transiti
 footer a:hover{color:var(--orange)}
 footer .line{border-top:1px solid #24211e;padding-top:20px;font-size:12px;color:#8a837c}
 .preview-flag{background:#fff4d6;color:#4a3a00;font-size:13px;text-align:center;padding:8px 16px}
+.mbar{display:none}
+@media (max-width:900px){.mbar{display:grid;grid-template-columns:1fr 1fr;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:80;padding:10px max(12px,env(safe-area-inset-left,0px)) calc(10px + env(safe-area-inset-bottom,0px));background:rgba(12,11,10,.94);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);border-top:1px solid rgba(255,255,255,.1);box-shadow:0 -10px 30px -12px rgba(0,0,0,.5)}.mbar .btn{padding:14px 10px;font-size:18px;width:100%}.mbar .btn:hover{transform:none}body{padding-bottom:calc(72px + env(safe-area-inset-bottom,0px))}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 @media (max-width:820px){.hs-text,.mission-text,.cta .wrap{text-align:center;justify-items:center}.sec .stack{text-align:center}.tile span{text-align:left}.hs-text p,.mission-text p{margin-inline:auto}.btns{justify-content:center}.trust{margin-inline:auto;text-align:center}.trust li{justify-items:center}h2::after{margin-inline:auto}.two>.stack,.two>p{text-align:center}.panel,.note{text-align:left}.ticks{text-align:left;justify-self:stretch}.why .panel{text-align:center;justify-items:center}.chips{justify-content:center}.arow{text-align:center}.arow .chips{justify-content:center}.zgrid,.posts{text-align:left}.post .stack{text-align:left;justify-items:stretch}.post h2::after{display:none}footer .cols{text-align:center}footer .line{text-align:center}}
 `;
@@ -325,8 +327,9 @@ ${MODE === "preview" ? `<div class="preview-flag">Vista previa privada Â· todavÃ
 ${header(depth)}
 <main>${body}</main>
 ${footer(depth)}
+<nav class="mbar" aria-label="Quick contact"><a class="btn btn-orange" href="${S.phoneHref}">Call Now</a><a class="btn btn-line" href="${link(depth, "contact")}">Free Quote</a></nav>
 <script src="https://beta.leadconnectorhq.com/loader.js" data-resources-url="https://beta.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="683d338bb8f8b548bfea13d2"></script>
-<script>(function(){var n=0,t=setInterval(function(){var w=document.querySelector("chat-widget");if(w&&w.shadowRoot&&w.shadowRoot.querySelector("#lc_text-widget--btn")){var s=document.createElement("style");s.textContent="@media (max-width:900px){#lc_text-widget,#lc_text-widget--btn{right:auto!important;left:16px!important}}";w.shadowRoot.appendChild(s);clearInterval(t)}if(++n>60)clearInterval(t)},500)})();</script>
+<script>(function(){var n=0,t=setInterval(function(){var w=document.querySelector("chat-widget");if(w&&w.shadowRoot&&w.shadowRoot.querySelector("#lc_text-widget--btn")){var s=document.createElement("style");s.textContent="@media (max-width:900px){#lc_text-widget,#lc_text-widget--btn{right:auto!important;left:16px!important}#lc_text-widget--btn{bottom:calc(84px + env(safe-area-inset-bottom,0px))!important}#lc_text-widget{bottom:calc(150px + env(safe-area-inset-bottom,0px))!important}}";w.shadowRoot.appendChild(s);clearInterval(t)}if(++n>60)clearInterval(t)},500)})();</script>
 </body></html>`;
   const dir = slug ? path.join(OUT, slug) : OUT;
   fs.mkdirSync(dir, { recursive: true });

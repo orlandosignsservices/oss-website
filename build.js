@@ -404,7 +404,7 @@ ${cta(d, K.cta, "")}` });
   page({ slug: C.slug, depth: d, title: C.title, desc: C.desc, body: `
 ${hero(d, { title: C.h1, text: C.text, photo: C.photo, buttons: false })}
 <section class="sec"><div class="wrap stack">
-<div class="stack center narrow" style="margin-inline:auto"><h2>GET A FREE QUOTE</h2><p>Send us the address, photos of the sign and what you need. We reply the same day.</p><div class="btns" style="justify-content:center"><a class="btn btn-orange" href="${QUOTE_MAILTO(S.email)}">Email Us for a Free Quote</a><a class="btn btn-line" href="${S.phoneHref}">Call ${S.phone}</a></div><p>Email: <b style="user-select:all">${S.email}</b> · Phone: <b style="user-select:all">${S.phone}</b></p></div>
+<div class="stack center narrow" style="margin-inline:auto"><h2>GET A FREE QUOTE</h2><p>Send us the address, photos of the sign and what you need. We reply the same day.</p><div class="btns" style="justify-content:center"><a class="btn btn-orange" href="${QUOTE_MAILTO(S.email)}">Email Us for a Free Quote</a><a class="btn btn-black" href="${S.phoneHref}">Call ${S.phone}</a></div><p>Email: <b style="user-select:all">${S.email}</b> · Phone: <b style="user-select:all">${S.phone}</b></p></div>
 <div class="stack center narrow" style="margin-inline:auto;margin-top:24px"><h3>Prefer to book a call?</h3><p>Pick a time below and we will call you.</p></div>
 <div id="quote-form" style="max-width:900px;width:100%;margin-inline:auto">${LC_WIDGET}</div>
 </div></section>` });

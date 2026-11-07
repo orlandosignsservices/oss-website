@@ -22,6 +22,9 @@ for (const f of fs.readdirSync(path.join(__dirname, "img"))) {
 
 // Mismo widget de Lead Connector que usa hoy la página Contact de Wix
 const LC_WIDGET = `<iframe src="https://api.leadconnectorhq.com/widget/booking/BgXVap1OuMe72rGIR61b" style="width:100%;border:none;overflow:hidden;min-height:1675px" scrolling="no" id="BgXVap1OuMe72rGIR61b_quote" title="Request a quote"></iframe><script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>`;
+// Microsoft Clarity (contador de visitas, proyecto "Orlando Signs Services", ID z9qhz6qxms). No se carga en la vista previa.
+const CLARITY = `<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "z9qhz6qxms");</script>`;
+
 // Botón principal de cotización: abre un email listo con lo que necesitamos para cotizar
 const QUOTE_MAILTO = (email) => "mailto:" + email + "?subject=" + encodeURIComponent("Free Quote Request") + "&body=" + encodeURIComponent("Hi Orlando Signs Services,\n\nI'd like a free quote.\n\nName:\nPhone:\nSign address:\nWhat I need (install / removal / repair / other):\nWhen I need it:\n\nPlease attach photos of the sign and the wall or storefront.\n\nThank you!");
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -324,6 +327,7 @@ function page({ slug, depth, title, desc, body, extraSchema, hold }) {
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>${CSS}</style>
 ${schema(extraSchema)}
+${MODE === "preview" ? "" : CLARITY}
 </head><body>
 ${MODE === "preview" ? `<div class="preview-flag">Vista previa privada · todavía no está publicada en orlandosignsservices.com</div>` : ""}
 ${header(depth)}

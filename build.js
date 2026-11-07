@@ -22,6 +22,8 @@ for (const f of fs.readdirSync(path.join(__dirname, "img"))) {
 
 // Mismo widget de Lead Connector que usa hoy la página Contact de Wix
 const LC_WIDGET = `<iframe src="https://api.leadconnectorhq.com/widget/booking/BgXVap1OuMe72rGIR61b" style="width:100%;border:none;overflow:hidden;min-height:1675px" scrolling="no" id="BgXVap1OuMe72rGIR61b_quote" title="Request a quote"></iframe><script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>`;
+// Botón principal de cotización: abre un email listo con lo que necesitamos para cotizar
+const QUOTE_MAILTO = (email) => "mailto:" + email + "?subject=" + encodeURIComponent("Free Quote Request") + "&body=" + encodeURIComponent("Hi Orlando Signs Services,\n\nI'd like a free quote.\n\nName:\nPhone:\nSign address:\nWhat I need (install / removal / repair / other):\nWhen I need it:\n\nPlease attach photos of the sign and the wall or storefront.\n\nThank you!");
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const areaBy = Object.fromEntries(L.areas.map((a) => [a.slug, a]));
 
@@ -398,7 +400,8 @@ ${cta(d, K.cta, "")}` });
   page({ slug: C.slug, depth: d, title: C.title, desc: C.desc, body: `
 ${hero(d, { title: C.h1, text: C.text, photo: C.photo, buttons: false })}
 <section class="sec"><div class="wrap stack">
-<div class="stack center narrow" style="margin-inline:auto"><h2>GET A FREE QUOTE</h2><p>Send us the address, photos of the sign and what you need. We reply the same day.</p><p>Email: <b style="user-select:all">${S.email}</b> · Phone: <b style="user-select:all">${S.phone}</b></p></div>
+<div class="stack center narrow" style="margin-inline:auto"><h2>GET A FREE QUOTE</h2><p>Send us the address, photos of the sign and what you need. We reply the same day.</p><div class="btns" style="justify-content:center"><a class="btn btn-orange" href="${QUOTE_MAILTO(S.email)}">Email Us for a Free Quote</a><a class="btn btn-line" href="${S.phoneHref}">Call ${S.phone}</a></div><p>Email: <b style="user-select:all">${S.email}</b> · Phone: <b style="user-select:all">${S.phone}</b></p></div>
+<div class="stack center narrow" style="margin-inline:auto;margin-top:24px"><h3>Prefer to book a call?</h3><p>Pick a time below and we will call you.</p></div>
 <div id="quote-form" style="max-width:900px;width:100%;margin-inline:auto">${LC_WIDGET}</div>
 </div></section>` });
 }
